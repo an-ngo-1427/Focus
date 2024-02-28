@@ -13,7 +13,13 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    first_name = db.Column(db.String(255),nullable = False)
+    last_name = db.Column(db.String(255),nullable = False)
 
+    groups = db.relationship('Group',secondary = 'user_groups', back_populates = 'users')
+    user_tasks = db.relationship('Task',back_populates='user')
+
+    owner_groups = db.relationship('Group',back_populates = 'organizer')
     @property
     def password(self):
         return self.hashed_password
@@ -29,5 +35,7 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            "fist_name":self.first_name,
+            "last_name":self.last_name
         }

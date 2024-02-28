@@ -32,13 +32,51 @@
 
 # TASK
 - # Create task
-    * I would like to create a task by clicking a button on the homepage
-    * All my todo tasks are shown on the homepage
-    * I like to be able to add checklist, notes, deadlines and links to my task
-    * I like to add a tag to my task
-    * setting the difficulties of the tasks
+    * As a logged in user, I want to be able to create new tasks
+    * I would like to create a task by clicking a button on the homepage '/'
+    * I would like to set info of my task through a modal form
 - # Complete task
-    * I like to checkoff my todo task and informed that task has been moved to the completed bucket
+    * When on the homepage '/'
+    * I would like to check off tasks
 - # edit task
-    * I like to prioritize tasks by moving the orders of the tasks in my todo lists
-    * I like to edit deadlines, tags, checklists, notes, of the tasks.
+    * When on the homepage '/'
+    * I like to click edit button of a task to edit deadlines, tags, checklists, notes, of the task.
+- # delete task
+    * When on the homepage '/'
+    * I like to click delete button to delete a task
+
+# GROUPS
+- # Create Groups
+    * As a loggin in user. I want to be able to create groups
+        * when on '/groups/:groupId'
+            * I want to create a group by clicking the create group button
+- # Edit Groups
+    * As an organizer of the group. I want to be able to edit the group
+        * when on '/groups/:groupId'
+            * I want to edit group name, members and tasks of the group.
+- # delete Groups
+    * As an organizer of the group. I want to be able to delete the group
+        * when on '/groups/:groupId'
+            * I want to  delete the group by clicking the delete button
+- # viewing Groups
+    * As a logged in user
+        * when im on '/groups' page
+            * I want to see all the groups that I am a member or the orgainizer of
+
+# REWARDS
+- # Gifting Rewards
+    * As a logged in user. I want to be able to gift rewards
+        * When in the rewards page '/rewards'
+            * I want to gift rewards points to my peer by clicking the create button and choose from a list of my peers that I can gift the reward to
+- # Viewing Rewards
+    * As a logged in user. I want to be able to view all my rewards
+        * When in the rewards page'/rewards'
+            * I want to see the total rewards points that I have and a history of peers who have gifted me rewards points.
+
+# TASK ITEM CHECKLISTs
+- # Creating task checklist
+    * As a logged in user. I want to be able to create checklists for my tasks
+        * when creating or editting a task in the '/'
+            * I want to be able to add multiple checklists to my task
+- # deleting task checklist
+    * As a logged in user. I want to be able to view my checklist and checkoff as I complete them

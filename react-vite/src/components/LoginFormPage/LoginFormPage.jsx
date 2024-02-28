@@ -33,32 +33,35 @@ function LoginFormPage() {
 
   return (
     <>
-      <h1>Log In</h1>
+      <h1 className="user-auth-header">Log In</h1>
       {errors.length > 0 &&
         errors.map((message) => <p key={message}>{message}</p>)}
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
+      <div>
+        <form className="user-auth" onSubmit={handleSubmit}>
+          <label className="field-labels">
+            Email
+          </label>
           <input
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Password
+          {errors.email && <p>{errors.email}</p>}
+          <label className="field-labels">
+            Password
+          </label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
-        <button type="submit">Log In</button>
-      </form>
+          {errors.password && <p>{errors.password}</p>}
+          <button type="submit">Log In</button>
+        </form>
+
+      </div>
     </>
   );
 }
