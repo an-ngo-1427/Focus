@@ -5,6 +5,8 @@ user_groups = db.Table(
     db.Column('user_id',db.Integer,db.ForeignKey(add_prefix_for_prod('users.id'))),
     db.Column('group_id',db.Integer,db.ForeignKey(add_prefix_for_prod('groups.id')))
 )
+if environment == "production":
+    user_groups.schema = SCHEMA
 
 class Group(db.Model):
     __tablename__ = 'groups'
