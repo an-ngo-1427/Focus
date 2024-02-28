@@ -25,6 +25,7 @@ class Task(db.Model):
     group = db.relationship('Group',back_populates = 'tasks')
     def to_dict(self):
         return {
+            "id":self.id,
             "notes":self.notes,
             "links":self.links,
             "deadline":self.deadline,
@@ -33,6 +34,6 @@ class Task(db.Model):
             "completed":self.completed,
             "created_at" : self.created_at,
             "updated_at" : self.updated_at,
-            "user" : self.user.to_dict(),
+            "user" : self.user.to_dict() if self.user else None,
             "group_id" : self.group_id
         }
