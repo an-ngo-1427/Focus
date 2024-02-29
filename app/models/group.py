@@ -24,7 +24,10 @@ class Group(db.Model):
     tasks = db.relationship('Task',back_populates = 'group')
     def to_dict(self):
         return{
+            "id":self.id,
             "name":self.name,
             "users":[user.to_dict() for user in self.users],
-            "organizer" : self.organizer.to_dict()
+            "organizer" : self.organizer.to_dict(),
+            "tasks": [task.to_dict() for task in self.tasks],
+            "image_url": self.image_url
         }
