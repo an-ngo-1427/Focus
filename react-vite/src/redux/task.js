@@ -78,7 +78,7 @@ export const deleteUserTaskThunk = (taskId) => async (dispatch)=>{
 
     const data = await response.json()
     if(response.ok){
-        dispatch(deleteUserTask(task))
+        dispatch(deleteUserTask(data))
     }
 
     return data

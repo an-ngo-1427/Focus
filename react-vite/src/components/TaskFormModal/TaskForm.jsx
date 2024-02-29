@@ -91,7 +91,7 @@ function TaskForm({ task }) {
 
     }
 
-    const handleDelete = (e) => {
+    const handleDelete = () => {
         dispatch(deleteUserTaskThunk(task.id))
             .then(closeModal())
     }
