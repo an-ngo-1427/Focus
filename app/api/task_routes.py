@@ -1,6 +1,6 @@
-from flask import Blueprint,request
+from flask import Blueprint,request,session
 from flask_login import login_required
-from app.models import Task
+from app.models import Task,Group
 from app.models.db import db
 from sqlalchemy import and_
 from app.forms.task_form import TaskForm
@@ -59,15 +59,76 @@ def getTasksByGroupCompleted(groupId):
 @login_required
 def createUserTask(userId):
     form = TaskForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if(form.validate_on_submit):
+    # form['csrf_token'].data = request.cookies['csrf_token']
+    if request.method == 'POST':
         newTask = Task()
-        form['deadline'].data = datetime.strptime(form.data['deadline'],'%Y-%m-%d')
+        if(len(form.data['deadline'])):
+            form['deadline'].data = datetime.strptime(form.data['deadline'],'%Y-%m-%d')
+        else:
+            form['deadline'].data = None
 
-
+        form['completed'].data = False
+        print('this is form----',form)
         form.populate_obj(newTask)
 
+        newTask.user_id = userId
         db.session.add(newTask)
         db.session.commit()
 
         return newTask.to_dict()
+
+# editting task
+@task_routes.route('/<int:taskId>',methods=['PUT'])
+@login_required
+def updateTask(taskId):
+    task = Task.query.get(taskId)
+
+    print('--------',session['_user_id'])
+    print ('--------',task.user_id)
+    if not task:
+        return {'errors':'Task not found'},404
+
+    if int(session['_user_id']) != task.user_id:
+        return {'errors':"Forbidden"},401
+
+    data = request.json
+
+
+    if 'title' in data:
+        task.title = data['title']
+    if 'notes' in data:
+        task.notes = data['notes']
+    if 'links' in data:
+        task.links = data['links']
+    if 'deadline' in data:
+        task.deadline = datetime.strptime(data['deadline'],'%Y-%m-%d')
+    if 'tag' in data:
+        task.tag = data['tag']
+    if 'difficulty' in data:
+        task.difficulty = data['difficulty']
+
+    db.session.commit()
+
+    return task.to_dict()
+
+# deleting task
+@task_routes.route('/<int:taskId>',methods=["DELETE"])
+@login_required
+def deletedTask(taskId):
+    task = Task.query.get(taskId)
+    userId = session['_user_id']
+    if not task:
+        return {'errors':'Task not found'},404
+
+    if task.user_id and userId != task.user_id:
+        return {'errors':'Forbidden'},401
+
+    print('-----',task.group.organizer.id)
+    if task.group_id:
+        if task.group.organizer.id != int(userId):
+            return {'errors':'Forbidden'},401
+
+    db.session.delete(task)
+    db.session.commit()
+
+    return task.to_dict()

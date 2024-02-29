@@ -12,7 +12,7 @@ class Task(db.Model):
     title = db.Column(db.String,nullable = False)
     notes = db.Column(db.Text)
     links = db.Column(db.Text)
-    deadline = db.Column(db.DateTime)
+    deadline = db.Column(db.Date)
     tag = db.Column(db.String(255))
     difficulty = db.Column(db.Integer)
     completed = db.Column(db.Boolean)
@@ -26,6 +26,7 @@ class Task(db.Model):
     def to_dict(self):
         return {
             "id":self.id,
+            'title':self.title,
             "notes":self.notes,
             "links":self.links,
             "deadline":self.deadline,

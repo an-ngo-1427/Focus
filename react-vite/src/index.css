@@ -36,3 +36,7 @@
 .user-auth > select{
     height:35px;
 }
+
+body{
+    background-color: rgb(249, 241, 241);
+}
