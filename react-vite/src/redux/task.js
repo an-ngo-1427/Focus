@@ -85,6 +85,28 @@ export const deleteUserTaskThunk = (taskId) => async (dispatch)=>{
 }
 
 
+// assigning group task to user
+const ASSIGN_USER_TASK = '/tasks/ASSIGN_USER_TASK'
+const assignUserTask = (task)=>{
+    return {
+        type:ASSIGN_USER_TASK,
+        task
+    }
+}
+
+export const assignUserTaskThunk = (taskId)=> async (dispatch)=>{
+    const response = await fetch(`/api/groups/tasks/${taskId}`,{
+        method:'POST'
+    })
+
+    const data = await response.json()
+    if(response.ok){
+        dispatch(assignUserTask(data))
+    }
+    return data
+}
+
+
 
 const initialState = {}
 function userTasksReducer(state = initialState,action){
@@ -106,6 +128,10 @@ function userTasksReducer(state = initialState,action){
         case (USER_DELETE_TASK):{
             delete state[action.task.id]
             let newObj = {...state}
+            return newObj
+        }
+        case (ASSIGN_USER_TASK):{
+            let newObj = {...state,[action.task.id]:action.task}
             return newObj
         }
     }

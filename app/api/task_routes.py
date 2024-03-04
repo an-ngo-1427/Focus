@@ -68,7 +68,7 @@ def createUserTask(userId):
             form['deadline'].data = None
 
         form['completed'].data = False
-        print('this is form----',form)
+
         form.populate_obj(newTask)
 
         newTask.user_id = userId
@@ -83,8 +83,8 @@ def createUserTask(userId):
 def updateTask(taskId):
     task = Task.query.get(taskId)
 
-    print('--------',session['_user_id'])
-    print ('--------',task.user_id)
+
+
     if not task:
         return {'errors':'Task not found'},404
 
@@ -100,8 +100,10 @@ def updateTask(taskId):
         task.notes = data['notes']
     if 'links' in data:
         task.links = data['links']
-    if 'deadline' in data:
+    if data['deadline']:
         task.deadline = datetime.strptime(data['deadline'],'%Y-%m-%d')
+    else:
+        task.deadline = None
     if 'tag' in data:
         task.tag = data['tag']
     if 'difficulty' in data:
@@ -123,7 +125,7 @@ def deletedTask(taskId):
     if task.user_id and userId != task.user_id:
         return {'errors':'Forbidden'},401
 
-    print('-----',task.group.organizer.id)
+
     if task.group_id:
         if task.group.organizer.id != int(userId):
             return {'errors':'Forbidden'},401

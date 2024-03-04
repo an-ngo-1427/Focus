@@ -1,12 +1,8 @@
-import { useEffect, useState } from "react"
-import { createUserTaskThunk, deleteUserTaskThunk, updateUserTaskThunk } from "../../redux/task"
-import { useDispatch, useSelector } from "react-redux"
+import { createGroupTaskThunk } from "../../redux/group"
+import { useState,useEffect} from "react"
+import { useDispatch } from "react-redux"
 import { useModal } from "../../context/Modal"
-import { FaRegTrashAlt } from "react-icons/fa";
-import { getUserGroupsThunk, updateGroupTaskThunk } from "../../redux/group";
-
-function TaskForm({ task, group }) {
-
+function GroupTaskForm({task,group}){
     const [title, setTitle] = useState("")
     const [notes, setNotes] = useState("")
     const [links, setLinks] = useState("")
@@ -16,13 +12,10 @@ function TaskForm({ task, group }) {
     const [err, setErr] = useState({})
     const [formErr, setFormerr] = useState(false)
     const [userId, setUserId] = useState("")
-    const user = useSelector(state => state.session.user)
     const dispatch = useDispatch()
     const { closeModal } = useModal()
 
 
-    // const date = new Date(deadline)
-    // console.log(Date.toISOString(deadline))
 
     useEffect(() => {
         let errObj = {}
@@ -33,91 +26,36 @@ function TaskForm({ task, group }) {
             }
         }
         setErr(errObj)
-        console.log('deadline',task)
     }, [title, deadline])
 
-    useEffect(() => {
-        if (task) {
-            setTitle(task.title)
-            setNotes(task.notes? task.notes:"")
-            setLinks(task.links? task.links:"")
-            let dateString = new Date(task.deadline)
-            dateString = dateString.toISOString().substring(0, 10)
-            setDeadline(dateString)
-            setTag(task.tag? task.tag:"")
-            setDifficulty(task.difficulty? task.difficulty:"")
-            // setGroupId(task.group_id ? task.group_id : "")
-            if (group) setUserId(task.user?.id)
-        }
-    }, [task])
-
-    const handleSubmit = (e) => {
+    const handleSubmit=(e)=>{
         e.preventDefault()
+        console.log('entered')
 
-        if (Object.values(err).length) setFormerr(true)
-        else {
-            if (!task) {
-                const form = new FormData()
-                form.append("title", title)
-                form.append("notes", notes)
-                form.append("links", links)
-                form.append("deadline", deadline)
-                form.append("tag", tag)
-                form.append("difficulty", difficulty)
-
-                dispatch(createUserTaskThunk(form, user.id))
-                    .then(result => {
-                        if (result.errors) {
-                            window.alert(result.errors)
-                        } else {
-                            closeModal()
-                        }
-                    }
-                    )
-            } else {
-                const updateObj = {
-                    title,
-                    notes,
-                    links,
-                    deadline,
-                    tag,
-                    difficulty
-                }
-                if(group){
-                    console.log('entered')
-                    updateObj.user_id = userId
-                    dispatch(updateGroupTaskThunk(group.id,task.id,updateObj)).
-                    then(()=>dispatch(getUserGroupsThunk())).
-                    then(result => {
-                        if (result.errors) {
-                            return window.alert(result.errors)
-                        } else {
-                            return closeModal()
-                        }
-                    })
-                }else{
-                    dispatch(updateUserTaskThunk(updateObj, task.id))
-                        .then(result => {
-                            if (result.errors) {
-                                window.alert(result.errors)
-                            } else {
-                                closeModal()
-                            }
-                        })
-
-                }
-
+        if (Object.values(err).length) return setFormerr(true)
+        else{
+            const updateObj = {
+                title,
+                notes,
+                links,
+                deadline,
+                tag,
+                difficulty,
+                user_id:userId
             }
+            dispatch(createGroupTaskThunk(group.id,updateObj)).
+            then(result=>{
+                if(result.message){
+                    window.alert(result.message)
+                }else{
+                    closeModal()
+                }
+            })
         }
-
-    }
-
-    const handleDelete = () => {
-        dispatch(deleteUserTaskThunk(task.id))
-            .then(closeModal())
     }
     return (
         <div>
+
             <form
                 className="user-auth"
                 onSubmit={handleSubmit}
@@ -173,7 +111,7 @@ function TaskForm({ task, group }) {
                 <input
                     type='date'
                     name='deadline'
-                    value={deadline? deadline:"yy/mm/dd"}
+                    value={deadline}
                     onChange={(e) => { setDeadline(e.target.value) }}
                 />
                 {formErr && err.deadline && <div style={{ 'color': 'red' }}>{err.deadline}</div>}
@@ -209,17 +147,11 @@ function TaskForm({ task, group }) {
                     <option value={4}>Hard</option>
                 </select>
 
-                <button type='submit' >{task ? 'Update Task' : 'Create Task'}</button>
-                {task && <div
-                    className='task-delete' style={{ 'color': 'red' }}
-                    onClick={handleDelete}
-                >
-                    <FaRegTrashAlt />Delete Task
-                </div>
-                }
+                <button type='submit' >{'Create Task'}</button>
+
             </form>
         </div>
     )
 }
 
-export default TaskForm
+export default GroupTaskForm

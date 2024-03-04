@@ -21,6 +21,26 @@ def getUserGroups():
     return {'Groups':groups},200
 
 
+# getting groups organized by the user
+@group_routes.route('/user/own')
+def getUserOwnerGroup():
+    user = User.query.get(session['_user_id'])
+    groups = [group.to_dict() for group in user.owner_groups]
+    return {'Groups':groups}
+
+# getting group by id
+@group_routes.route('/<int:groupId>')
+@login_required
+def getGroupDetails(groupId):
+    group = Group.query.get(groupId)
+    userId = session["_user_id"]
+    if(not group):
+        return {'message':'Group not found'}
+    if int(userId) != group.organizer.id:
+        return {'message':'Forbidden'},401
+
+    return group.to_dict(),200
+
 # Creating a group
 @group_routes.route('/new',methods=['POST'])
 @login_required
@@ -67,19 +87,22 @@ def addGroupTask(groupId):
     if int(userId) != group.organizer.id:
         return {'message':'Forbidden'},401
 
-    print(group.organizer.id)
-    print(userId)
     newTask = Task()
     data = request.json
+    print('entered group routes-----------',data)
 
     newTask.title = data['title']
     newTask.notes = data['notes']
     newTask.links = data['links']
-    newTask.deadline = datetime.strptime(data['deadline'],'%Y-%m-%d')
+    if(data['deadline']):
+        newTask.deadline = datetime.strptime(data['deadline'],'%Y-%m-%d')
+    else:
+        newTask.deadline = None
     newTask.tag = data['tag']
     newTask.difficulty = data['difficulty']
     newTask.group_id = group.id
     newTask.completed = False
+    newTask.user_id = data['user_id']
     db.session.add(newTask)
     db.session.commit()
     return group.to_dict(),201
@@ -126,11 +149,15 @@ def editGroupTask(groupId,taskId):
 
 
     data = request.json
+    print('this is data-----',data)
 
     task.title = data['title']
     task.notes = data['notes']
     task.links = data['links']
-    task.deadline = datetime.strptime(data['deadline'],'%Y-%m-%d')
+    if data['deadline']:
+        task.deadline = datetime.strptime(data['deadline'],'%Y-%m-%d')
+    else:
+        task.deadline = None
     task.tag = data['tag']
     task.difficulty = data['difficulty']
     task.group_id = group.id
@@ -180,3 +207,17 @@ def addUser(userId,groupId):
         db.session.commit()
 
         return group.to_dict(),200
+
+# Assigning group task to user
+@group_routes.route('/tasks/<int:taskId>',methods=['POST'])
+@login_required
+def addUserTask(taskId):
+    task = Task.query.get(taskId)
+    if not task:
+        return {'message':'task not found'}
+
+    userId = int(session['_user_id'])
+    task.user_id = userId
+
+    db.session.commit()
+    return task.to_dict(),200

@@ -1,19 +1,22 @@
-import { useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector, useStore} from "react-redux";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import TaskForm from "../TaskFormModal";
 import { getUserTasksThunk } from "../../redux/task";
 import { useEffect } from "react";
+// import {useNavigate} from 'react-router-dom'
 import TaskCard from "../TaskCard";
 import './HomePage.css'
+import { getUserGroupsThunk } from "../../redux/group";
 
 function HomePage(){
     const dispatch = useDispatch()
     const user = useSelector(state=>state.session.user)
     const userTasks = useSelector(state=>state.userTasks)
-
+    const userGroups = useSelector(state=>state.userGroups)
 
     useEffect(()=>{
-        dispatch(getUserTasksThunk(user.id))
+        dispatch(getUserTasksThunk(user?.id))
+        dispatch(getUserGroupsThunk())
     },[dispatch])
     return(
         <div>
