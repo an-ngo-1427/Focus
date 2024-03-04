@@ -5,7 +5,7 @@ import GroupCard from "./GroupCard"
 
 import OpenModalButton from "../OpenModalButton/OpenModalButton"
 import GroupForm from "../GroupForm/GroupForm"
-function GroupPage(){
+function GroupNav(){
     const dispatch = useDispatch()
     const userGroups = useSelector(state=>state.userGroups)
     const userOwnGroups = useSelector(state=>state.userOwnGroups)
@@ -28,4 +28,4 @@ function GroupPage(){
         </>
     )
 }
-export default GroupPage
+export default GroupNav

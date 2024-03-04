@@ -5,6 +5,7 @@ import Layout from './Layout';
 import HomePage from '../components/HomePage';
 import GroupPage from '../components/GroupPage';
 import GroupDetail from '../components/GroupDetail/GroupDetail';
+import GroupNav from '../components/GroupPage/GroupNav';
 export const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -14,12 +15,17 @@ export const router = createBrowserRouter([
         element:<HomePage/>,
       },
       {
-        path:'/groups',
-        element:<GroupPage/>
-      },
-      {
-        path:'/groups/:groupId/edit',
-        element:<GroupDetail/>
+        element:<GroupNav/>,
+        children:[
+          {
+            path:'/groups',
+            element:<GroupPage/>
+          },
+          {
+            path:'/groups/:groupId/edit',
+            element:<GroupDetail/>
+          }
+        ]
       }
     ],
   },

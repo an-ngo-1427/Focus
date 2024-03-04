@@ -1,2 +1,2 @@
-import GroupPage from "./GroupPage";
-export default GroupPage
+import GroupNav from "./GroupNav";
+export default GroupNav
