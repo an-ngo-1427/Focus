@@ -1,8 +1,35 @@
 .tasks-window{
-    width:35%;
+    width:45%;
     background-color: rgb(213, 215, 217) !important;
     padding:10px;
     display: flex;
     flex-direction: column;
     gap:5px;
+    margin:auto;
+    justify-content: center;
+}
+
+.task-box{
+    display: flex;
+    flex-direction: row;
+
+}
+
+.task-card{
+    width:100%;
+}
+
+.task-checkbox{
+    font-size: x-large;
+    align-self: center;
+    padding-right: 10px;
+}
+
+.task-checkbox.completed{
+    color:green;
+
+}
+
+.task-checkbox:hover{
+    cursor: pointer;
 }

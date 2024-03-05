@@ -107,6 +107,26 @@ export const assignUserTaskThunk = (taskId)=> async (dispatch)=>{
 }
 
 
+// Check task complete
+const COMPLETE_TASK = '/task/COMPLETE_TASK'
+const completeTask = (task)=>{
+    return{
+        type:COMPLETE_TASK,
+        task
+    }
+}
+
+export const completeTaskThunk = (taskId,methodParams)=>async (dispatch)=>{
+    const response = await fetch(`/api/tasks/${taskId}/check`,{
+        method:methodParams
+    })
+    const data = await response.json()
+    if(response.ok){
+        dispatch(completeTask(data))
+    }
+    return data
+}
+
 
 const initialState = {}
 function userTasksReducer(state = initialState,action){
@@ -131,6 +151,10 @@ function userTasksReducer(state = initialState,action){
             return newObj
         }
         case (ASSIGN_USER_TASK):{
+            let newObj = {...state,[action.task.id]:action.task}
+            return newObj
+        }
+        case (COMPLETE_TASK):{
             let newObj = {...state,[action.task.id]:action.task}
             return newObj
         }
