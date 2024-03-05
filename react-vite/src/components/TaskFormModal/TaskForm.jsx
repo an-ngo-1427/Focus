@@ -3,7 +3,8 @@ import { createUserTaskThunk, deleteUserTaskThunk, updateUserTaskThunk } from ".
 import { useDispatch, useSelector } from "react-redux"
 import { useModal } from "../../context/Modal"
 import { FaRegTrashAlt } from "react-icons/fa";
-import { getUserGroupsThunk, updateGroupTaskThunk } from "../../redux/group";
+import { getGroupDetailsThunk, getUserGroupsThunk, updateGroupTaskThunk } from "../../redux/group";
+import { useNavigate } from "react-router-dom";
 
 function TaskForm({ task, group }) {
 
@@ -19,12 +20,14 @@ function TaskForm({ task, group }) {
     const user = useSelector(state => state.session.user)
     const dispatch = useDispatch()
     const { closeModal } = useModal()
+    const navigate = useNavigate()
 
 
     // const date = new Date(deadline)
     // console.log(Date.toISOString(deadline))
 
     useEffect(() => {
+        if(!user) return navigate('/login')
         let errObj = {}
         if (title.length <= 0) errObj.title = 'title is required'
         if (deadline) {
@@ -33,7 +36,7 @@ function TaskForm({ task, group }) {
             }
         }
         setErr(errObj)
-        console.log('deadline',task)
+
     }, [title, deadline])
 
     useEffect(() => {
@@ -47,7 +50,11 @@ function TaskForm({ task, group }) {
             setTag(task.tag? task.tag:"")
             setDifficulty(task.difficulty? task.difficulty:"")
             // setGroupId(task.group_id ? task.group_id : "")
-            if (group) setUserId(task.user?.id)
+            if (group){
+                if(task.user){
+                    setUserId(task.user?.id)
+                }
+            }
         }
     }, [task])
 
@@ -84,8 +91,9 @@ function TaskForm({ task, group }) {
                     difficulty
                 }
                 if(group){
-                    console.log('entered')
                     updateObj.user_id = userId
+                    console.log(userId)
+                    console.log('deadline',updateObj)
                     dispatch(updateGroupTaskThunk(group.id,task.id,updateObj)).
                     then(()=>dispatch(getUserGroupsThunk())).
                     then(result => {
@@ -114,7 +122,8 @@ function TaskForm({ task, group }) {
 
     const handleDelete = () => {
         dispatch(deleteUserTaskThunk(task.id))
-            .then(closeModal())
+        .then(()=>{ if (group) dispatch(getGroupDetailsThunk(group.id))})
+        .then(closeModal())
     }
     return (
         <div>
@@ -173,7 +182,7 @@ function TaskForm({ task, group }) {
                 <input
                     type='date'
                     name='deadline'
-                    value={deadline? deadline:"yy/mm/dd"}
+                    value={deadline? deadline:""}
                     onChange={(e) => { setDeadline(e.target.value) }}
                 />
                 {formErr && err.deadline && <div style={{ 'color': 'red' }}>{err.deadline}</div>}

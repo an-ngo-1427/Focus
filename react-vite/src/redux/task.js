@@ -64,10 +64,10 @@ export const updateUserTaskThunk = (task,taskId)=>async (dispatch)=>{
 
 // deleting task
 const USER_DELETE_TASK = '/tasks/USER_DELETE_TASK'
-const deleteUserTask = (task)=>{
+const deleteUserTask = (taskId)=>{
     return {
         type:USER_DELETE_TASK,
-        task
+        taskId
     }
 }
 
@@ -126,7 +126,7 @@ function userTasksReducer(state = initialState,action){
             return newObj
         }
         case (USER_DELETE_TASK):{
-            delete state[action.task.id]
+            delete state[action.taskId.taskId]
             let newObj = {...state}
             return newObj
         }

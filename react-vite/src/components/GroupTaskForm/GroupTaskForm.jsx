@@ -1,8 +1,9 @@
-import { createGroupTaskThunk } from "../../redux/group"
-import { useState,useEffect} from "react"
+import { createGroupTaskThunk} from "../../redux/group"
+import { useState,useEffect,useSelector} from "react"
 import { useDispatch } from "react-redux"
 import { useModal } from "../../context/Modal"
-function GroupTaskForm({task,group}){
+import { useNavigate } from "react-router-dom"
+function GroupTaskForm({group}){
     const [title, setTitle] = useState("")
     const [notes, setNotes] = useState("")
     const [links, setLinks] = useState("")
@@ -14,8 +15,8 @@ function GroupTaskForm({task,group}){
     const [userId, setUserId] = useState("")
     const dispatch = useDispatch()
     const { closeModal } = useModal()
-
-
+    const navigate = useNavigate()
+    const user = useSelector(state=>state.session.user)
 
     useEffect(() => {
         let errObj = {}
@@ -27,6 +28,9 @@ function GroupTaskForm({task,group}){
         }
         setErr(errObj)
     }, [title, deadline])
+    if(!user) return navigate('/login')
+
+
 
     const handleSubmit=(e)=>{
         e.preventDefault()

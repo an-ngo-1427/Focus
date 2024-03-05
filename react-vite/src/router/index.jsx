@@ -3,9 +3,9 @@ import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
 import HomePage from '../components/HomePage';
-import GroupPage from '../components/GroupPage';
+
 import GroupDetail from '../components/GroupDetail/GroupDetail';
-import GroupNav from '../components/GroupPage/GroupNav';
+import GroupNav from '../components/GroupNav/GroupNav';
 export const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
         children:[
           {
             path:'/groups',
-            element:<GroupPage/>
+            element:null
           },
           {
             path:'/groups/:groupId/edit',

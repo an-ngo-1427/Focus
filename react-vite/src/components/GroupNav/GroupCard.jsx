@@ -4,6 +4,7 @@ import TaskCard from "../TaskCard"
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem"
 import GroupTaskForm from "../GroupTaskForm/GroupTaskForm"
 function GroupCard({ group }) {
+    console.log(group)
     const groupTasks = group.tasks
     const user = useSelector(state => state.session.user)
     const navigate = useNavigate()
@@ -11,7 +12,7 @@ function GroupCard({ group }) {
         e.preventDefault()
         navigate(`/groups/${group.id}/edit`)
     }
-
+    if(!Object.values(group).length) return null
     return (
         <div>
             <h2>{group.name}</h2>

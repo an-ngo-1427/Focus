@@ -3,6 +3,7 @@ import { thunkLogin } from "../../redux/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import "./LoginForm.css";
+import { useModal } from "../../context/Modal";
 
 function LoginFormPage() {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ function LoginFormPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-
+  const {closeModal} = useModal()
   if (sessionUser) return <Navigate to="/" replace={true} />;
 
   const handleSubmit = async (e) => {
@@ -31,6 +32,14 @@ function LoginFormPage() {
     }
   };
 
+  const loginDemo = ()=>{
+    dispatch(thunkLogin({
+      email:'demo@aa.io',
+      password:'password'
+    })).
+    then(navigate('/'))
+    closeModal()
+  }
   return (
     <>
       <h1 className="user-auth-header">Log In</h1>
@@ -60,7 +69,8 @@ function LoginFormPage() {
           {errors.password && <p>{errors.password}</p>}
           <button type="submit">Log In</button>
         </form>
-
+        <span onClick={loginDemo}>Demo user</span>
+        <div onClick={closeModal}>cancel</div>
       </div>
     </>
   );

@@ -1,4 +1,4 @@
-import { useDispatch, useSelector, useStore} from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import TaskForm from "../TaskFormModal";
 import { getUserTasksThunk } from "../../redux/task";
@@ -12,7 +12,7 @@ function HomePage(){
     const dispatch = useDispatch()
     const user = useSelector(state=>state.session.user)
     const userTasks = useSelector(state=>state.userTasks)
-    const userGroups = useSelector(state=>state.userGroups)
+    // const userGroups = useSelector(state=>state.userGroups)
 
     useEffect(()=>{
         dispatch(getUserTasksThunk(user?.id))

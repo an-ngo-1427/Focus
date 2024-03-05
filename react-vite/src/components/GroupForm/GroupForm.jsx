@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
-import { useDispatch } from "react-redux"
-import { createGroupThunk } from "../../redux/group"
+import { useDispatch, useSelector } from "react-redux"
+import { createGroupThunk, getUserOwnGroupsThunk } from "../../redux/group"
 import { useModal } from "../../context/Modal"
+import { useNavigate } from "react-router-dom"
 function GroupForm() {
     const [name, setName] = useState("")
     const [imageUrl, setImageurl] = useState("")
@@ -9,7 +10,11 @@ function GroupForm() {
     const [formErr, setFormerr] = useState(false)
     const dispatch = useDispatch()
     const { closeModal } = useModal()
+    const navigate = useNavigate()
+    const user = useSelector(state=>state.session.user)
+
     useEffect(() => {
+        if(!user) navigate('/login')
         let errObj = {}
         if (!name) errObj.name = 'Group name is required'
         const allowedFile = ['jpeg', 'png', 'gif', 'jpg']
@@ -23,7 +28,7 @@ function GroupForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(name,imageUrl)
+
         if (Object.values(err).length) return setFormerr(true)
         else {
             console.log('entered')
@@ -32,7 +37,10 @@ function GroupForm() {
                 image_url: imageUrl
             }
             dispatch(createGroupThunk(groupObj)).
-                then(() => { closeModal() })
+            then(()=>{dispatch(getUserOwnGroupsThunk())}).
+            then((group)=>{navigate(`/groups/${group.id}/edit`)})
+            closeModal()
+
         }
     }
     const handleCancel = (e) => {
@@ -67,5 +75,6 @@ function GroupForm() {
         </>
     )
 }
+
 
 export default GroupForm

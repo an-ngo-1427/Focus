@@ -24,6 +24,7 @@ function TaskCard({ task,group}) {
         then(()=>{dispatch(getUserGroupsThunk())})
     }
 
+    if(!user) return null
     const setButtonName = ()=>{
         if(group){
             if(group.organizer.id == user.id) return 'show'

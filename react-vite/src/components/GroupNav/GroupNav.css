@@ -1,0 +1,16 @@
+.group-nav{
+    height: 100%;
+    width:187px;
+    background-color: rgb(109, 100, 100);
+    position:absolute;
+}
+
+/* #root{
+    height:800px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+} */
+.group-nav a.active{
+    background-color: red;
+}

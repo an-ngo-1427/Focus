@@ -92,6 +92,11 @@ export const userOwnGroupReducer = (state=initialState,action)=>{
             action.groups.Groups.forEach(group=>newObj[group.id] = group)
             return newObj
         }
+        case(CREATE_GROUP):{
+            let newObj={}
+            newObj = {...state,[action.group.id]:action.group}
+            return newObj
+        }
     }
     return state
 }
@@ -110,10 +115,10 @@ function userGroupsReducer (state = initialState,action){
             let newObj={...state,[action.group.id]:action.group}
             return newObj
         }
-        case(CREATE_GROUP):{
-            let newObj = {...state,[action.group.id]:action.group}
-            return newObj
-        }
+        // case(CREATE_GROUP):{
+        //     let newObj = {...state,[action.group.id]:action.group}
+        //     return newObj
+        // }
     }
     return state
 }
@@ -121,10 +126,10 @@ function userGroupsReducer (state = initialState,action){
 // update group task
 const UPDATE_GROUP_TASK = '/groups/UPDATE_GROUP_TASK'
 
-const updateGroupTask = (task)=>{
+const updateGroupTask = (group)=>{
     return{
         type:UPDATE_GROUP_TASK,
-        task
+        group
     }
 }
 
@@ -136,19 +141,19 @@ export const updateGroupTaskThunk = (groupId,taskId,task)=> async(dispatch)=>{
     })
     const data = await response.json()
     if(response.ok){
-        dispatch(updateGroupTask(task))
+        dispatch(updateGroupTask(data))
     }
     return data
 }
 
-export const groupTaskReducer = (state=initialState,action)=>{
-    switch(action.type){
-        case(UPDATE_GROUP_TASK):{
-            return action.task
-        }
-    }
-    return state
-}
+// export const groupTaskReducer = (state=initialState,action)=>{
+//     switch(action.type){
+//         case(UPDATE_GROUP_TASK):{
+//             return action.task
+//         }
+//     }
+//     return state
+// }
 
 // getting curr Group
 const GET_GROUP_DETAILS = '/groups/GET_GROUP_DETAILS'
@@ -196,6 +201,12 @@ export const getCurrGroupReducer = (state=initialState,action)=>{
             return action.group
         }
         case(REMOVE_MEMBER):{
+            return action.group
+        }
+        case(UPDATE_GROUP_TASK):{
+            return action.group
+        }
+        case (CREATE_GROUP_TASK):{
             return action.group
         }
     }

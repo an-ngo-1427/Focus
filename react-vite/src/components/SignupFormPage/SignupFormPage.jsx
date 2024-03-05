@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { thunkSignup } from "../../redux/session";
+import { useModal } from "../../context/Modal";
 
 function SignupFormPage() {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ function SignupFormPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const [formErr,setFormErr] = useState(false)
-
+  const {closeModal} = useModal()
   useEffect(()=>{
     let errObj = {}
     if (!email.includes('@')) errObj.email = 'please provide a valid email'
@@ -125,6 +126,7 @@ function SignupFormPage() {
           <button type="submit">Sign Up</button>
         </form>
       </div>
+      <span onClick={closeModal}>cancel</span>
     </>
   );
 }
