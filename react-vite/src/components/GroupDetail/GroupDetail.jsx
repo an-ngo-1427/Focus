@@ -20,6 +20,7 @@ function GroupDetail() {
     return (
         <div className="group-page">
             <h1>{currGroup.name}</h1>
+            <GroupCard group={currGroup}></GroupCard>
             <h2>members</h2>
             {currGroup.users?.map(user =>
                 <div className='user-card' key={user.id}>
@@ -32,7 +33,6 @@ function GroupDetail() {
                         dispatch(removeMemberThunk(groupId, userId))
                     }}>remove</button>}
                 </div>)}
-            <GroupCard group={currGroup}></GroupCard>
 
         </div>
     )

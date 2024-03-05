@@ -119,18 +119,26 @@ def updateTask(taskId):
 def deletedTask(taskId):
     task = Task.query.get(taskId)
     userId = session['_user_id']
+    print('user Id is ',userId)
+    print(task.group_id)
     if not task:
         return {'errors':'Task not found'},404
-
-    if task.user_id and userId != task.user_id:
-        return {'errors':'Forbidden'},401
-
 
     if task.group_id:
         if task.group.organizer.id != int(userId):
             return {'errors':'Forbidden'},401
+        else:
+            taskId = task.id
+            db.session.delete(task)
+            db.session.commit()
+            return {'taskId':taskId}
 
+    if task.user_id and int(userId) != task.user_id:
+        return {'errors':'Forbidden'},401
+
+
+    taskId = task.id
     db.session.delete(task)
     db.session.commit()
 
-    return task.to_dict()
+    return {'taskId':taskId}

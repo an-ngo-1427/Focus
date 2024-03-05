@@ -32,6 +32,7 @@ function TaskCard({ task,group}) {
         if(user.id == task.user?.id && !task.group_id) return 'show'
         return 'hidden'
     }
+
     return (
         <>
             <div className="task-card">
@@ -69,7 +70,7 @@ function TaskCard({ task,group}) {
                     {task.user && task.group_id && <div><MdOutlinePerson/> {task.user.first_name} </div>}
                     {!task.user && !task.completed && <div onClick={addTask}><IoMdAdd/></div>}
                 </div>
-                {group && <div>Group: {group.name}</div>}
+                {/* {group && <div>Group: {group.name}</div>} */}
 
             </div>
 

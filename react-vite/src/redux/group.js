@@ -195,6 +195,28 @@ export const removeMemberThunk = (groupId,userId)=>async (dispatch)=>{
     }
     return data
 }
+
+// updating group info
+const UPDATE_GROUP = '/groups/UPDATE_GROUP'
+const updateGroup = (group)=>{
+    return{
+        type:UPDATE_GROUP,
+        group
+    }
+}
+
+export const updateGroupThunk = (groupId,dataObj)=>async (dispatch)=>{
+    const response = await fetch(`/api/groups/${groupId}`,{
+        method:'PUT',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(dataObj)
+    })
+    const data = await response.json()
+    if(response.ok){
+        dispatch(updateGroup(data))
+    }
+    return data
+}
 export const getCurrGroupReducer = (state=initialState,action)=>{
     switch(action.type){
         case(GET_GROUP_DETAILS):{
@@ -207,6 +229,9 @@ export const getCurrGroupReducer = (state=initialState,action)=>{
             return action.group
         }
         case (CREATE_GROUP_TASK):{
+            return action.group
+        }
+        case (UPDATE_GROUP):{
             return action.group
         }
     }

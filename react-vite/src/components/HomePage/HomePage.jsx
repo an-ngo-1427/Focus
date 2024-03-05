@@ -17,7 +17,7 @@ function HomePage(){
     useEffect(()=>{
         dispatch(getUserTasksThunk(user?.id))
         dispatch(getUserGroupsThunk())
-    },[dispatch])
+    },[dispatch,user])
     return(
         <div>
             <OpenModalMenuItem

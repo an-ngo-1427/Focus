@@ -13,8 +13,8 @@ function LoginFormPage() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const {closeModal} = useModal()
-  if (sessionUser) return <Navigate to="/" replace={true} />;
 
+  if (sessionUser) return <Navigate to="/" replace={true} />;
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -23,21 +23,23 @@ function LoginFormPage() {
         email,
         password,
       })
-    );
+      );
 
-    if (serverResponse) {
-      setErrors(serverResponse);
-    } else {
-      navigate("/");
-    }
-  };
+      if (serverResponse) {
+        setErrors(serverResponse);
+      } else {
+        navigate("/");
+      }
+    };
+
+
 
   const loginDemo = ()=>{
     dispatch(thunkLogin({
       email:'demo@aa.io',
       password:'password'
     })).
-    then(navigate('/'))
+    then(()=>navigate('/'))
     closeModal()
   }
   return (
@@ -70,7 +72,7 @@ function LoginFormPage() {
           <button type="submit">Log In</button>
         </form>
         <span onClick={loginDemo}>Demo user</span>
-        <div onClick={closeModal}>cancel</div>
+        {<div onClick={closeModal}>cancel</div>}
       </div>
     </>
   );

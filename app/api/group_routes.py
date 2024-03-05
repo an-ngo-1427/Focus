@@ -36,8 +36,6 @@ def getGroupDetails(groupId):
     userId = session["_user_id"]
     if(not group):
         return {'message':'Group not found'}
-    if int(userId) != group.organizer.id:
-        return {'message':'Forbidden'},401
 
     return group.to_dict(),200
 
@@ -73,6 +71,7 @@ def editGroup(groupId):
     group.name = data['name']
     group.image_url = data['image_url']
 
+    db.session.commit()
     return group.to_dict(),200
 
 # Adding tasks to group
@@ -164,7 +163,7 @@ def editGroupTask(groupId,taskId):
     task.user_id = data['user_id']
 
     db.session.commit()
-    return task.to_dict(),200
+    return group.to_dict(),200
 
 # Adding  and removing user from a group
 @group_routes.route('/<int:groupId>/user/<int:userId>',methods=["POST","DELETE"])

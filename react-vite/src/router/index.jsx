@@ -26,15 +26,15 @@ export const router = createBrowserRouter([
             element:<GroupDetail/>
           }
         ]
-      }
+      },
+      {
+        path: "login",
+        element: <LoginFormPage />,
+      },
+      {
+        path: "signup",
+        element: <SignupFormPage />,
+      },
     ],
-  },
-  {
-    path: "login",
-    element: <LoginFormPage />,
-  },
-  {
-    path: "signup",
-    element: <SignupFormPage />,
   },
 ]);
