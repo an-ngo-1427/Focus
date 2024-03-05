@@ -93,6 +93,7 @@ def addGroupTask(groupId):
     newTask.title = data['title']
     newTask.notes = data['notes']
     newTask.links = data['links']
+
     if(data['deadline']):
         newTask.deadline = datetime.strptime(data['deadline'],'%Y-%m-%d')
     else:
@@ -101,7 +102,12 @@ def addGroupTask(groupId):
     newTask.difficulty = data['difficulty']
     newTask.group_id = group.id
     newTask.completed = False
-    newTask.user_id = data['user_id']
+
+    if(len(data['user_id'])):
+        newTask.user_id = int(data['user_id'])
+    else:
+        newTask.user_id = None
+
     db.session.add(newTask)
     db.session.commit()
     return group.to_dict(),201
@@ -148,7 +154,7 @@ def editGroupTask(groupId,taskId):
 
 
     data = request.json
-    print('this is data-----',data)
+    print('this is data----- userId',data)
 
     task.title = data['title']
     task.notes = data['notes']
@@ -160,7 +166,12 @@ def editGroupTask(groupId,taskId):
     task.tag = data['tag']
     task.difficulty = data['difficulty']
     task.group_id = group.id
-    task.user_id = data['user_id']
+
+    if(data['user_id']):
+        task.user_id = int(data['user_id'])
+    else:
+        task.user_id = None
+
 
     db.session.commit()
     return group.to_dict(),200
