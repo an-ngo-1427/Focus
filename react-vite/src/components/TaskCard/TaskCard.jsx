@@ -7,11 +7,12 @@ import { MdOutlinePerson } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
 import { useDispatch, useSelector } from 'react-redux';
 import { assignUserTaskThunk } from '../../redux/task';
-import { getUserGroupsThunk } from '../../redux/group';
+import {  getGroupDetailsThunk} from '../../redux/group';
 
 function TaskCard({ task,group}) {
     const dispatch = useDispatch()
     const user = useSelector(state=>state.session.user)
+
     const addTask = ()=>{
         dispatch(assignUserTaskThunk(task.id)).
         then(result=>{
@@ -21,7 +22,7 @@ function TaskCard({ task,group}) {
                 window.alert('task added')
             }
         }).
-        then(()=>{dispatch(getUserGroupsThunk())})
+        then(()=>{dispatch(getGroupDetailsThunk(group.id))})
     }
 
     if(!user) return null
