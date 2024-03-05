@@ -32,3 +32,15 @@
     align-self: center;
     margin-top:35px;
 }
+
+.user-auth > select{
+    height:35px;
+}
+
+body{
+    background-color: rgb(249, 241, 241);
+}
+
+.group-page{
+    margin-left: 250px;
+}

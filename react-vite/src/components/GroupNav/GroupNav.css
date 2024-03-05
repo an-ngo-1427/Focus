@@ -1,0 +1,50 @@
+.group-nav{
+    height: 100%;
+    width:187px;
+    background-color: rgb(205, 168, 168);
+    position:absolute;
+    padding:15px;
+}
+
+/* #root{
+    height:800px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+} */
+.group-nav a.active{
+    background-color: rgb(158, 127, 127);
+}
+
+.group-item{
+    list-style: none;
+    display: flex;
+
+}
+.group-item:hover{
+    cursor: pointer;
+    background-color: rgb(158, 127, 127);
+}
+
+.create-group{
+    width: 100%;
+    height: 41px;
+    background-color: rgb(212, 143, 143)
+}
+
+.create-group:hover{
+    cursor: pointer;
+}
+
+.group-list{
+    padding-left: 0px;
+}
+
+.group-item>a{
+    text-decoration: none;
+    width:100%;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color:inherit;
+}

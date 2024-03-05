@@ -6,9 +6,16 @@ import {
 } from "redux";
 import thunk from "redux-thunk";
 import sessionReducer from "./session";
-
+import userTasksReducer from "./task";
+import userGroupsReducer, { getCurrGroupReducer, userOwnGroupReducer } from "./group";
+// import { groupTaskReducer } from "./group";
 const rootReducer = combineReducers({
   session: sessionReducer,
+  userTasks : userTasksReducer,
+  userGroups : userGroupsReducer,
+  // groupTask : groupTaskReducer,
+  currGroup : getCurrGroupReducer,
+  userOwnGroups: userOwnGroupReducer
 });
 
 let enhancer;

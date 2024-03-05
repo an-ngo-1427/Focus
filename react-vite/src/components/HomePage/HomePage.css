@@ -1,0 +1,8 @@
+.tasks-window{
+    width:35%;
+    background-color: rgb(213, 215, 217) !important;
+    padding:10px;
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+}

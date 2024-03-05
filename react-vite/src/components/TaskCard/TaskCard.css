@@ -1,0 +1,23 @@
+.task-card{
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    height:80px;
+}
+
+.hidden{
+    display: none;
+}
+
+.task-main{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+
+.task-details{
+    display: flex;
+    gap:5px;
+}
