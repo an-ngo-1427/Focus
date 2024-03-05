@@ -30,9 +30,7 @@ function HomePage(){
                     {Object.values(userTasks).map(task => (<TaskCard key = {task.id} task={task}/>))}
                 </div>
             </div>
-            <div className = 'todo-window'>
-                <h3>Group To Do&apos;s</h3>
-            </div>
+
         </div>
     )
 }
