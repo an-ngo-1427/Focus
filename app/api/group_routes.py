@@ -93,15 +93,19 @@ def addGroupTask(groupId):
     newTask.title = data['title']
     newTask.notes = data['notes']
     newTask.links = data['links']
+    newTask.tag = data['tag']
+    newTask.group_id = group.id
+    newTask.completed = False
 
     if(data['deadline']):
         newTask.deadline = datetime.strptime(data['deadline'],'%Y-%m-%d')
     else:
         newTask.deadline = None
-    newTask.tag = data['tag']
-    newTask.difficulty = data['difficulty']
-    newTask.group_id = group.id
-    newTask.completed = False
+
+    if(data['difficulty']):
+        newTask.difficulty = int(data['difficulty'])
+    else:
+        newTask.user_id = None
 
     if(len(data['user_id'])):
         newTask.user_id = int(data['user_id'])
@@ -159,13 +163,19 @@ def editGroupTask(groupId,taskId):
     task.title = data['title']
     task.notes = data['notes']
     task.links = data['links']
+    task.tag = data['tag']
+    task.group_id = group.id
+
     if data['deadline']:
         task.deadline = datetime.strptime(data['deadline'],'%Y-%m-%d')
     else:
         task.deadline = None
-    task.tag = data['tag']
-    task.difficulty = data['difficulty']
-    task.group_id = group.id
+
+    if(data['difficulty']):
+        task.difficulty = int(data['difficulty'])
+    else:
+        task.difficulty = None
+
 
     if(data['user_id']):
         task.user_id = int(data['user_id'])
