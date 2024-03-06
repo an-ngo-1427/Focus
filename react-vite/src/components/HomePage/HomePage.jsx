@@ -1,4 +1,4 @@
-import { useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import TaskForm from "../TaskFormModal";
 import { completeTaskThunk, getUserTasksThunk } from "../../redux/task";
@@ -9,46 +9,46 @@ import './HomePage.css'
 import { getUserGroupsThunk } from "../../redux/group";
 import { IoIosCheckbox } from "react-icons/io";
 
-function HomePage(){
+function HomePage() {
     const dispatch = useDispatch()
-    const user = useSelector(state=>state.session.user)
-    const userTasks = useSelector(state=>state.userTasks)
+    const user = useSelector(state => state.session.user)
+    const userTasks = useSelector(state => state.userTasks)
     // const userGroups = useSelector(state=>state.userGroups)
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getUserTasksThunk(user?.id))
         dispatch(getUserGroupsThunk())
-    },[dispatch,user])
+    }, [dispatch, user])
 
-    const checkBox = (task)=>{
-        if(!task.completed){
-            dispatch(completeTaskThunk(task.id,'POST'))
-        }else{
-            dispatch(completeTaskThunk(task.id,'DELETE'))
+    const checkBox = (task) => {
+        if (!task.completed) {
+            dispatch(completeTaskThunk(task.id, 'POST'))
+        } else {
+            dispatch(completeTaskThunk(task.id, 'DELETE'))
         }
     }
 
-    const boxName = (task)=>{
-        if(task.completed) return 'task-checkbox completed'
+    const boxName = (task) => {
+        if (task.completed) return 'task-checkbox completed'
         else return 'task-checkbox'
     }
-    return(
+    return (
         <div>
-            <OpenModalMenuItem
-                itemText={'+ Add Task'}
-                modalComponent={<TaskForm/>}
-            />
-            <div className = 'todo-window'>
+            <div className='todo-window'>
                 <h3>Your To Do&apos;s</h3>
-                <div className = 'tasks-window'>
+                <div className='tasks-window'>
+                    <OpenModalMenuItem
+                        itemText={'+ Add Task'}
+                        modalComponent={<TaskForm />}
+                    />
                     {Object.values(userTasks).map(task => (
-                        <div key = {task.id} className = 'task-box'>
+                        <div key={task.id} className='task-box'>
                             <IoIosCheckbox
                                 // key={task.id}
-                                className = {boxName(task)}
-                                onClick={()=>{checkBox(task)}}
+                                className={boxName(task)}
+                                onClick={() => { checkBox(task) }}
                             />
-                            <TaskCard className='task-card' task={task}/>
+                            <TaskCard className='task-card' task={task} />
                         </div>
                     ))}
                 </div>

@@ -142,10 +142,7 @@ function userGroupsReducer (state = initialState,action){
             let newObj={...state,[action.group.id]:action.group}
             return newObj
         }
-        // case(CREATE_GROUP):{
-        //     let newObj = {...state,[action.group.id]:action.group}
-        //     return newObj
-        // }
+
     }
     return state
 }

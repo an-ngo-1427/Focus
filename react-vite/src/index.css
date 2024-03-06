@@ -44,3 +44,7 @@ body{
 .group-page{
     margin-left: 250px;
 }
+
+button{
+    cursor: pointer;
+}

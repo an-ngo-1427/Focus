@@ -33,3 +33,22 @@
 .task-checkbox:hover{
     cursor: pointer;
 }
+
+.todo-window{
+    width:85%;
+    margin:auto;
+}
+
+
+
+.tasks-window>li{
+    list-style: none;
+    border: solid 2px black;
+    padding:5px;
+    width:fit-content
+}
+
+.tasks-window>li:hover{
+    cursor: pointer;
+    background-color: rgb(158, 127, 127);
+}
