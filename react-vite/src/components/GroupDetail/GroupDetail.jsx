@@ -24,7 +24,7 @@ function GroupDetail() {
             <h1>{currGroup.name}</h1>
             <GroupCard group={currGroup}></GroupCard>
             <h2>members</h2>
-            {currGroup.organizer.id == mainUser.id &&
+            {currGroup.organizer?.id == mainUser.id &&
             <OpenModalMenuItem
                 itemText='Add members'
                 modalComponent={<MembersBoard group={currGroup}/>}
