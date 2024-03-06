@@ -66,6 +66,7 @@ export const getUserGroupsThunk = ()=>async (dispatch)=>{
 }
 
 
+
 // getting user own groups
 const GET_USER_OWN_GROUPS = '/groups/GET_USER_OWN_GROUPS'
 
@@ -85,6 +86,26 @@ export const getUserOwnGroupsThunk = ()=>async (dispatch)=>{
     return data
 }
 
+// deleting group
+const DELETE_GROUP = '/groups/DELETE_GROUP'
+const deleteGroup = (groupId)=>{
+    return{
+        type:DELETE_GROUP,
+        groupId
+    }
+}
+
+export const deleteGroupThunk = (groupId)=>async (dispatch)=>{
+    const response = await fetch(`/api/groups/${groupId}`,{
+        method:'DELETE'
+    })
+    const data = await response.json()
+    if(response.ok){
+        dispatch(deleteGroup(data))
+    }
+    return data
+}
+
 export const userOwnGroupReducer = (state=initialState,action)=>{
     switch(action.type){
         case(GET_USER_OWN_GROUPS):{
@@ -96,6 +117,12 @@ export const userOwnGroupReducer = (state=initialState,action)=>{
             let newObj={}
             newObj = {...state,[action.group.id]:action.group}
             return newObj
+        }
+        case(DELETE_GROUP):{
+            let newObj = {}
+            delete state[action.groupId.groupId]
+            newObj = {...state}
+            return newObj;
         }
     }
     return state

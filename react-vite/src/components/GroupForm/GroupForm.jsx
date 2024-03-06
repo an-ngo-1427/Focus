@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { createGroupThunk, getUserOwnGroupsThunk, updateGroupThunk } from "../../redux/group"
+import { createGroupThunk, deleteGroupThunk, getUserOwnGroupsThunk, updateGroupThunk } from "../../redux/group"
 import { useModal } from "../../context/Modal"
 import { useNavigate } from "react-router-dom"
+import { FaRegTrashAlt } from "react-icons/fa";
 function GroupForm({ group }) {
     const [name, setName] = useState("")
     const [imageUrl, setImageurl] = useState("")
@@ -58,6 +59,13 @@ function GroupForm({ group }) {
         e.preventDefault()
         closeModal()
     }
+
+    const deleteGroup = (e)=>{
+        e.preventDefault()
+        dispatch(deleteGroupThunk(group.id)).
+        then(()=>{navigate('/groups')})
+        closeModal()
+    }
     return (
         <>
             <span onClick={handleCancel}>cancel</span>
@@ -84,7 +92,7 @@ function GroupForm({ group }) {
                 {formErr && <div style={{ 'color': 'red' }}>{err.imageUrl}</div>}
                 <button type="submit" >{group ? 'Update group' : 'Create Group'}</button>
             </form>
-
+            {group && <div style={{'color':'red'}} onClick={(e)=>{deleteGroup(e)}}><FaRegTrashAlt/> Delete group</div>}
         </>
     )
 }

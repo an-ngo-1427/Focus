@@ -21,7 +21,7 @@ class Group(db.Model):
 
     users = db.relationship('User',secondary = 'user_groups',back_populates = 'groups')
     organizer = db.relationship('User',back_populates = 'owner_groups')
-    tasks = db.relationship('Task',back_populates = 'group')
+    tasks = db.relationship('Task',back_populates = 'group',cascade = "all, delete")
     def to_dict(self):
         return{
             "id":self.id,

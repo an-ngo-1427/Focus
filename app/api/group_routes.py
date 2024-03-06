@@ -241,3 +241,21 @@ def addUserTask(taskId):
 
     db.session.commit()
     return task.to_dict(),200
+
+# deleteting groups
+@group_routes.route('/<int:groupId>',methods=['DELETE'])
+@ login_required
+def deleteGroup(groupId):
+    group = Group.query.get(groupId)
+    userId = int(session["_user_id"])
+    if (not group):
+        return {'errors':'Group not found'},401
+
+    if (userId != group.organizer.id):
+        return {'errors':'Forbidden'},404
+    groupId = group.id
+
+    db.session.delete(group)
+    db.session.commit()
+
+    return {'groupId':groupId},200
