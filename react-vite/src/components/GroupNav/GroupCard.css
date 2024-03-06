@@ -12,7 +12,13 @@
     padding:5px;
 }
 
-.group-manage>li:hover{
+.group-manage>li:hover,.member-button:hover{
     cursor: pointer;
     background-color: rgb(158, 127, 127);
+}
+
+.member-button{
+    background-color: inherit;
+    border: solid 2px black;
+    padding:5px;
 }

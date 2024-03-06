@@ -13,8 +13,13 @@ function GroupForm({ group }) {
     const { closeModal } = useModal()
     const navigate = useNavigate()
     const user = useSelector(state => state.session.user)
+
     useEffect(() => {
-        if (!user) navigate('/login')
+        if (!user){
+            closeModal()
+            navigate('/login')
+
+        }
         let errObj = {}
         if (!name) errObj.name = 'Group name is required'
         const allowedFile = ['jpeg', 'png', 'gif', 'jpg']
@@ -68,7 +73,7 @@ function GroupForm({ group }) {
     }
     return (
         <>
-            <span onClick={handleCancel}>cancel</span>
+            <span onClick={handleCancel} className="form-link">cancel</span>
             <form
                 className="user-auth"
                 onSubmit={handleSubmit}

@@ -14,7 +14,7 @@
 
 .field-labels{
     position: relative;
-    top: 12px;
+    top: 1px;
     left: 20px;
     z-index:1;
     background-color: white;
@@ -47,4 +47,14 @@ body{
 
 button{
     cursor: pointer;
+}
+
+.form-link:hover{
+    color:rgb(158, 127, 127);
+    cursor: pointer;
+}
+
+.form-link{
+    width:fit-content;
+
 }

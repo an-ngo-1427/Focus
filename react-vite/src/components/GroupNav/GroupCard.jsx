@@ -19,14 +19,14 @@ function GroupCard({ group }) {
         <div>
             <div  className="group-manage">
             {/* <h2>{group.name}</h2> */}
-            {user.id == group.organizer.id &&
+            {user.id == group.organizer?.id &&
                 <OpenModalMenuItem
                     itemText={'Edit group'}
                     modalComponent={<GroupForm group={group}/>}
                 />
             }
             {/* {user.id == group.organizer.id && <button>Add members</button>} */}
-            {user.id == group.organizer.id &&
+            {user.id == group.organizer?.id &&
                 <OpenModalMenuItem
                     itemText={'+ Add Task'}
                     modalComponent={<GroupTaskForm group={group} />}
@@ -35,7 +35,7 @@ function GroupCard({ group }) {
             }
 
             </div>
-            {groupTasks.map(task => <TaskCard key={task.id} task={task} group={group} />)}
+            {groupTasks?.map(task => <TaskCard key={task.id} task={task} group={group} />)}
 
         </div>
     )

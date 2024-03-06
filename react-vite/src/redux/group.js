@@ -220,6 +220,26 @@ export const removeMemberThunk = (groupId,userId)=>async (dispatch)=>{
     return data
 }
 
+// adding members to a group
+const ADD_MEMBER = '/groups/ADD_MEMBERS'
+const addMember = (group)=>{
+    return{
+        type:ADD_MEMBER,
+        group
+    }
+}
+
+export const addMemberThunk = (groupId,userId) => async (dispatch)=>{
+    const response = await fetch(`/api/groups/${groupId}/user/${userId}`,{
+        method:'POST'
+    })
+    const data = await response.json()
+    if(response.ok){
+        dispatch(addMember(data))
+    }
+    return data
+}
+
 // updating group info
 const UPDATE_GROUP = '/groups/UPDATE_GROUP'
 const updateGroup = (group)=>{
@@ -256,6 +276,9 @@ export const getCurrGroupReducer = (state=initialState,action)=>{
             return action.group
         }
         case (UPDATE_GROUP):{
+            return action.group
+        }
+        case (ADD_MEMBER):{
             return action.group
         }
     }

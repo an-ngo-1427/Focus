@@ -72,7 +72,7 @@ function LoginFormPage() {
           <button type="submit">Log In</button>
         </form>
         <span onClick={loginDemo}>Demo user</span>
-        {<div onClick={closeModal}>cancel</div>}
+
       </div>
     </>
   );
