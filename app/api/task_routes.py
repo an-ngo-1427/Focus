@@ -142,3 +142,30 @@ def deletedTask(taskId):
     db.session.commit()
 
     return {'taskId':taskId}
+
+# completing and uncompleting task
+@task_routes.route('/<int:taskId>/check',methods=['POST','DELETE'])
+@login_required
+def checkTask(taskId):
+    task = Task.query.get(taskId)
+    if(not task):
+        return {'errors':'task not found'},401
+    userId =int(session['_user_id'])
+    if(userId != task.user_id):
+        return {'errors':"Forbidden"},404
+
+    if request.method == 'POST':
+        if(task.completed):
+            return {'message':'Task already completed'}
+        else:
+            task.completed = True
+            db.session.commit()
+            return task.to_dict(),200
+
+    if request.method == 'DELETE':
+        if(not task.completed):
+            return {'message':'Task is not completed'}
+        else:
+            task.completed = False
+            db.session.commit()
+            return task.to_dict(),200

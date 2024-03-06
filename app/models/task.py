@@ -18,8 +18,8 @@ class Task(db.Model):
     completed = db.Column(db.Boolean)
     created_at = db.Column(db.DateTime,default = datetime.now())
     updated_at = db.Column(db.DateTime,default = datetime.now(),onupdate = datetime.now())
-    group_id = db.Column(db.Integer,db.ForeignKey(add_prefix_for_prod('groups.id'),ondelete='CASCADE'))
-    user_id = db.Column(db.Integer,db.ForeignKey(add_prefix_for_prod('users.id'),ondelete='CASCADE'))
+    group_id = db.Column(db.Integer,db.ForeignKey(add_prefix_for_prod('groups.id')))
+    user_id = db.Column(db.Integer,db.ForeignKey(add_prefix_for_prod('users.id')))
 
     user = db.relationship('User',back_populates='user_tasks')
     group = db.relationship('Group',back_populates = 'tasks')
