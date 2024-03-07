@@ -61,11 +61,16 @@ def createUserTask(userId):
     form = TaskForm()
     # form['csrf_token'].data = request.cookies['csrf_token']
     if request.method == 'POST':
+
         newTask = Task()
         if(len(form.data['deadline'])):
             form['deadline'].data = datetime.strptime(form.data['deadline'],'%Y-%m-%d')
         else:
             form['deadline'].data = None
+
+        if not form.data['difficulty']:
+
+            form['difficulty'].data = None
 
         form['completed'].data = False
 
@@ -106,8 +111,13 @@ def updateTask(taskId):
         task.deadline = None
     if 'tag' in data:
         task.tag = data['tag']
-    if 'difficulty' in data:
+
+    if data['difficulty']:
         task.difficulty = data['difficulty']
+    else:
+        print('----',data['difficulty'])
+        task.difficulty = None
+
 
     db.session.commit()
 

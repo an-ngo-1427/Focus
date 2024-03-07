@@ -47,9 +47,9 @@ def getGroupDetails(groupId):
 def createGroup():
     form = GroupForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print('this is form file data',form.data)
+
     if form.validate_on_submit:
-        data = form.data
+
 
         group = Group()
         userId = session['_user_id']
@@ -65,12 +65,13 @@ def createGroup():
             group.image_url = upload['url']
 
 
-        group.name = data['name']
+        group.name = form.data['name']
         group.organizer_id = userId
 
         db.session.add(group)
         db.session.commit()
         return group.to_dict(),201
+
     else:
         return form.errors,401
 
@@ -78,6 +79,7 @@ def createGroup():
 @group_routes.route('/<int:groupId>',methods = ['PUT'])
 def editGroup(groupId):
     form = GroupForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
     group = Group.query.get(groupId)
     userId = session['_user_id']
     if not group:
@@ -91,9 +93,12 @@ def editGroup(groupId):
     if(imageFile):
         uniqueName = get_unique_filename(form.data['image'].filename)
         imageFile.fileName = uniqueName
+        # print('--------------name',imageFile.fileName)
         upload = upload_file_to_s3(imageFile)
+
         if 'url' not in upload:
             return {"message":"failed to upload file"}
+
         group.image_url = upload['url']
 
     group.name = form.data['name']

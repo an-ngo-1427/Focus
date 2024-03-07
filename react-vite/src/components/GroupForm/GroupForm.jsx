@@ -22,11 +22,6 @@ function GroupForm({ group }) {
         }
         let errObj = {}
         if (!name) errObj.name = 'Group name is required'
-        // const allowedFile = ['jpeg', 'png', 'gif', 'jpg']
-        // if (imageUrl.length) {
-        //     let fileExt = imageUrl.substring(imageUrl.length - 3)
-        //     if (!allowedFile.includes(fileExt)) errObj.imageUrl = 'Allowed file extenstions jpeg, png, gif, jpg'
-        // }
 
         setErr(errObj)
     }, [name, image])
