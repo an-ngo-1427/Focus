@@ -3,7 +3,7 @@
 import TaskCard from "../TaskCard"
 import './GroupCard.css'
 function GroupCard({ group }) {
-    console.log(group)
+
     const groupTasks = group.tasks
     // const navigate = useNavigate()
     // const editGroup = (e)=>{

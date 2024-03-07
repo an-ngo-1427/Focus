@@ -115,7 +115,7 @@ def updateTask(taskId):
     if data['difficulty']:
         task.difficulty = data['difficulty']
     else:
-        print('----',data['difficulty'])
+
         task.difficulty = None
 
 
@@ -129,8 +129,8 @@ def updateTask(taskId):
 def deletedTask(taskId):
     task = Task.query.get(taskId)
     userId = session['_user_id']
-    print('user Id is ',userId)
-    print(task.group_id)
+
+
     if not task:
         return {'errors':'Task not found'},404
 

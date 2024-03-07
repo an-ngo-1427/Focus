@@ -120,7 +120,7 @@ def addGroupTask(groupId):
 
     newTask = Task()
     data = request.json
-    print('entered group routes-----------',data)
+
 
     newTask.title = data['title']
     newTask.notes = data['notes']
@@ -190,7 +190,7 @@ def editGroupTask(groupId,taskId):
 
 
     data = request.json
-    print('this is data----- userId',data)
+
 
     task.title = data['title']
     task.notes = data['notes']

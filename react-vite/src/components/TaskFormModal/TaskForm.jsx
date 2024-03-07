@@ -95,8 +95,7 @@ function TaskForm({ task, group }) {
                 }
                 if(group){
                     updateObj.user_id = userId
-                    console.log(userId)
-                    console.log('deadline',updateObj)
+
                     dispatch(updateGroupTaskThunk(group.id,task.id,updateObj)).
                     then(()=>dispatch(getUserGroupsThunk())).
                     then(result => {

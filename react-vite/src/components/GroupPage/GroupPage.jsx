@@ -4,7 +4,7 @@ import './GroupPage.css'
 import { useEffect } from "react";
 function GroupPage(){
     const user = useSelector(state=>state.session.user)
-    console.log(user)
+
     const navigate = useNavigate()
 
     useEffect(()=>{

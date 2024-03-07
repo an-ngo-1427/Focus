@@ -57,7 +57,7 @@ export const createGroupTaskThunk = (groupId,task)=>async (dispatch)=>{
 export const getUserGroupsThunk = ()=>async (dispatch)=>{
     const response = await fetch('/api/groups/user')
     const data = await response.json()
-    console.log('this is data',data)
+
     if(response.ok){
         dispatch(getUserGroups(data))
     }

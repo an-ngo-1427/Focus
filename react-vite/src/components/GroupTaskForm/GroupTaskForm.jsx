@@ -35,7 +35,7 @@ function GroupTaskForm({group}){
 
     const handleSubmit=(e)=>{
         e.preventDefault()
-        console.log('entered')
+
 
         if (Object.values(err).length) return setFormerr(true)
         else{
