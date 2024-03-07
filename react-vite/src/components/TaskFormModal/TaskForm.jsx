@@ -27,7 +27,10 @@ function TaskForm({ task, group }) {
     // console.log(Date.toISOString(deadline))
 
     useEffect(() => {
-        if(!user) return navigate('/login')
+        if(!user){
+            closeModal()
+            return navigate('/login')
+        }
         let errObj = {}
         if (title.length <= 0) errObj.title = 'title is required'
         if (deadline) {
@@ -132,7 +135,7 @@ function TaskForm({ task, group }) {
                 onSubmit={handleSubmit}
             >
                 {group && <div>Group: {group.name}</div>}
-                <div className='close-form' onClick={closeModal}>cancel</div>
+                <div className='form-link' onClick={closeModal}>cancel</div>
                 <div className='field-labels'>
                     Title*
                 </div>

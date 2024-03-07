@@ -6,31 +6,34 @@ import { useNavigate } from "react-router-dom"
 import { FaRegTrashAlt } from "react-icons/fa";
 function GroupForm({ group }) {
     const [name, setName] = useState("")
-    const [imageUrl, setImageurl] = useState("")
+    const [image, setImage] = useState("")
     const [err, setErr] = useState({})
     const [formErr, setFormerr] = useState(false)
     const dispatch = useDispatch()
     const { closeModal } = useModal()
     const navigate = useNavigate()
     const user = useSelector(state => state.session.user)
+
     useEffect(() => {
-        if (!user) navigate('/login')
+        if (!user){
+            closeModal()
+            navigate('/login')
+
+        }
         let errObj = {}
         if (!name) errObj.name = 'Group name is required'
-        const allowedFile = ['jpeg', 'png', 'gif', 'jpg']
-        if (imageUrl.length) {
-            let fileExt = imageUrl.substring(imageUrl.length - 3)
-            if (!allowedFile.includes(fileExt)) errObj.imageUrl = 'Allowed file extenstions jpeg, png, gif, jpg'
-        }
+        // const allowedFile = ['jpeg', 'png', 'gif', 'jpg']
+        // if (imageUrl.length) {
+        //     let fileExt = imageUrl.substring(imageUrl.length - 3)
+        //     if (!allowedFile.includes(fileExt)) errObj.imageUrl = 'Allowed file extenstions jpeg, png, gif, jpg'
+        // }
 
         setErr(errObj)
-    }, [name, imageUrl])
+    }, [name, image])
 
     useEffect(() => {
         if (group) {
-            console.log(group.name)
             setName(group.name)
-            setImageurl(group.image_url)
         }
     },[group])
     const handleSubmit = async (e) => {
@@ -38,16 +41,18 @@ function GroupForm({ group }) {
 
         if (Object.values(err).length) return setFormerr(true)
         else {
-            console.log('entered')
-            const groupObj = {
-                name,
-                image_url: imageUrl
-            }
+            const formData = new FormData()
+            // const groupObj = {
+            //     name,
+            //     image_url: imageUrl
+            // }
+            formData.append('name',name)
+            formData.append('image',image)
             let currGroup;
             if (!group) {
-                currGroup = await dispatch(createGroupThunk(groupObj))
+                currGroup = await dispatch(createGroupThunk(formData))
             } else {
-                currGroup = await dispatch(updateGroupThunk(group.id, groupObj))
+                currGroup = await dispatch(updateGroupThunk(group.id, formData))
             }
             await dispatch(getUserOwnGroupsThunk())
             navigate(`/groups/${currGroup.id}/edit`)
@@ -68,10 +73,11 @@ function GroupForm({ group }) {
     }
     return (
         <>
-            <span onClick={handleCancel}>cancel</span>
+            <span onClick={handleCancel} className="form-link">cancel</span>
             <form
                 className="user-auth"
                 onSubmit={handleSubmit}
+                encType = "multipart/form-data"
             >
                 <div className="field-labels">
                     Group Name
@@ -85,9 +91,9 @@ function GroupForm({ group }) {
                     Group Image
                 </div>
                 <input
-                    placeholder="Image Url"
-                    onChange={(e) => setImageurl(e.target.value)}
-                    value={imageUrl}
+                    type='file'
+                    accept = "image/*"
+                    onChange={(e) => setImage(e.target.files[0])}
                 />
                 {formErr && <div style={{ 'color': 'red' }}>{err.imageUrl}</div>}
                 <button type="submit" >{group ? 'Update group' : 'Create Group'}</button>

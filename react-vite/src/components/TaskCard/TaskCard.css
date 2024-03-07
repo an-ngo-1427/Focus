@@ -2,9 +2,12 @@
     background-color: white;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-wrap: wrap;
     height:80px;
+    padding:5px;
+    max-width: 600px;
+    margin:auto
 }
 
 .hidden{

@@ -1,18 +1,26 @@
 .group-manage{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap:15px;
     padding:15px;
 
 }
 
-.group-manage>li{
+.group-manage>li,.todo-window>li{
     list-style: none;
     border: solid 2px black;
     padding:5px;
+    width:fit-content
 }
 
-.group-manage>li:hover{
+
+.group-manage>li:hover,.todo-window>li:hover{
     cursor: pointer;
     background-color: rgb(158, 127, 127);
+}
+
+.member-button{
+    background-color: inherit;
+    border: solid 2px black;
+    padding:5px;
 }

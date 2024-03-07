@@ -66,7 +66,7 @@ function GroupTaskForm({group}){
                 onSubmit={handleSubmit}
             >
                 {group && <div>Group: {group.name}</div>}
-                <div className='close-form' onClick={closeModal}>cancel</div>
+                <div className='form-link' onClick={closeModal}>cancel</div>
                 <div className='field-labels'>
                     Title*
                 </div>

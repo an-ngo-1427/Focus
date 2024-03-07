@@ -11,7 +11,9 @@ def users():
     """
     Query for all users and returns them in a list of user dictionaries
     """
+
     users = User.query.all()
+    print(users)
     return {'users': [user.to_dict() for user in users]}
 
 

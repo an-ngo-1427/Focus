@@ -3,6 +3,8 @@ from flask import Blueprint,session,request
 from flask_login import login_required
 from datetime import datetime
 from sqlalchemy import insert,delete,and_
+from app.forms.group_form import GroupForm
+from app.api.aws_help import get_unique_filename,upload_file_to_s3
 group_routes = Blueprint('groups',__name__)
 
 # getting all groups
@@ -33,7 +35,7 @@ def getUserOwnerGroup():
 @login_required
 def getGroupDetails(groupId):
     group = Group.query.get(groupId)
-    userId = session["_user_id"]
+
     if(not group):
         return {'message':'Group not found'}
 
@@ -43,21 +45,39 @@ def getGroupDetails(groupId):
 @group_routes.route('/new',methods=['POST'])
 @login_required
 def createGroup():
-    group = Group()
-    userId = session['_user_id']
-    data = request.json
-    group.name = data['name']
-    group.organizer_id = userId
-    group.image_url = data['image_url']
+    form = GroupForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    print('this is form file data',form.data)
+    if form.validate_on_submit:
+        data = form.data
 
-    db.session.add(group)
-    db.session.commit()
-    return group.to_dict(),201
+        group = Group()
+        userId = session['_user_id']
 
+        # getting file unique name and upload to s3
+        imageFile = form.data['image']
+        if(imageFile):
+            uniqueName = get_unique_filename(form.data['image'].filename)
+            imageFile.fileName = uniqueName
+            upload = upload_file_to_s3(imageFile)
+            if 'url' not in upload:
+                return {"message":"failed to upload file"}
+            group.image_url = upload['url']
+
+
+        group.name = data['name']
+        group.organizer_id = userId
+
+        db.session.add(group)
+        db.session.commit()
+        return group.to_dict(),201
+    else:
+        return form.errors,401
 
 # editting group
 @group_routes.route('/<int:groupId>',methods = ['PUT'])
 def editGroup(groupId):
+    form = GroupForm()
     group = Group.query.get(groupId)
     userId = session['_user_id']
     if not group:
@@ -66,10 +86,17 @@ def editGroup(groupId):
     if int(userId) != group.organizer.id:
         return {'message':'Forbidden'},401
 
-    data = request.json
 
-    group.name = data['name']
-    group.image_url = data['image_url']
+    imageFile = form.data['image']
+    if(imageFile):
+        uniqueName = get_unique_filename(form.data['image'].filename)
+        imageFile.fileName = uniqueName
+        upload = upload_file_to_s3(imageFile)
+        if 'url' not in upload:
+            return {"message":"failed to upload file"}
+        group.image_url = upload['url']
+
+    group.name = form.data['name']
 
     db.session.commit()
     return group.to_dict(),200

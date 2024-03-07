@@ -76,4 +76,34 @@ function sessionReducer(state = initialState, action) {
   }
 }
 
+// getting all users
+const initialStateUsers={}
+
+const GET_USERS = '/users/GET_USERS'
+const getUsers = (users)=>{
+  return{
+    type:GET_USERS,
+    users
+  }
+}
+
+export const getUsersThunk = ()=>async (dispatch)=>{
+  const response = await fetch('/api/users/')
+  const data = await response.json()
+  if(response.ok){
+    dispatch(getUsers(data))
+  }
+  return data
+}
+
+export const getUsersReducer = (state = initialStateUsers,action)=>{
+  switch(action.type){
+    case GET_USERS:{
+      let newObj={}
+      action.users.users.forEach(user=>newObj[user.id] = user)
+      return newObj
+    }
+  }
+  return state
+}
 export default sessionReducer;

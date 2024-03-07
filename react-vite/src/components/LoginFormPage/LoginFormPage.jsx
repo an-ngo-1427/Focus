@@ -70,9 +70,9 @@ function LoginFormPage() {
           />
           {errors.password && <p>{errors.password}</p>}
           <button type="submit">Log In</button>
+        <span className='form-link' onClick={loginDemo}>Demo user</span>
         </form>
-        <span onClick={loginDemo}>Demo user</span>
-        {<div onClick={closeModal}>cancel</div>}
+
       </div>
     </>
   );

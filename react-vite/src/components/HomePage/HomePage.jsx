@@ -36,21 +36,30 @@ function HomePage() {
         <div>
             <div className='todo-window'>
                 <h3>Your To Do&apos;s</h3>
+                <OpenModalMenuItem
+                    className='member-button'
+                    itemText={'+ Add Task'}
+                    modalComponent={<TaskForm />}
+                />
                 <div className='tasks-window'>
-                    <OpenModalMenuItem
-                        itemText={'+ Add Task'}
-                        modalComponent={<TaskForm />}
-                    />
-                    {Object.values(userTasks).map(task => (
-                        <div key={task.id} className='task-box'>
-                            <IoIosCheckbox
-                                // key={task.id}
-                                className={boxName(task)}
-                                onClick={() => { checkBox(task) }}
-                            />
-                            <TaskCard className='task-card' task={task} />
+                    {!user ? <div>login to manage your tasks!</div> : (
+                        <div
+                            style={{'display':'flex','flex-direction':'column','gap':'7px'}}
+                        >
+                            {Object.values(userTasks).map(task => (
+                                <div key={task.id} className='task-box'>
+                                    <IoIosCheckbox
+                                        // key={task.id}
+                                        className={boxName(task)}
+                                        onClick={() => { checkBox(task) }}
+                                    />
+                                    <TaskCard className='task-card' task={task} />
+                                </div>
+                            ))}
+
                         </div>
-                    ))}
+                    )
+                    }
                 </div>
             </div>
 
