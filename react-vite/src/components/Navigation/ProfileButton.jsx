@@ -9,6 +9,7 @@ import { thunkLogout } from "../../redux/session";
 // import LoginFormPage from "../LoginFormPage";
 // import SignupFormPage from "../SignupFormPage";
 import { NavLink, useNavigate } from "react-router-dom";
+// import { getUserTasksThunk } from "../../redux/task";
 function ProfileButton() {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
@@ -40,6 +41,7 @@ function ProfileButton() {
   const logout = (e) => {
     e.preventDefault();
     dispatch(thunkLogout()).
+
     then(()=>{navigate('/login')})
     closeMenu();
   };
@@ -61,16 +63,7 @@ function ProfileButton() {
             </>
           ) : (
             <>
-              {/* <OpenModalMenuItem
-                itemText="Log In"
-                onItemClick={closeMenu}
-                modalComponent={<LoginFormPage modal={true}/>}
-              /> */}
-              {/* <OpenModalMenuItem
-                itemText="Sign Up"
-                onItemClick={closeMenu}
-                modalComponent={<SignupFormPage modal={true}/>}
-              /> */}
+
               <li><NavLink to='/signup'>Sign Up</NavLink></li>
               <li><NavLink to='/login'>Login</NavLink></li>
             </>

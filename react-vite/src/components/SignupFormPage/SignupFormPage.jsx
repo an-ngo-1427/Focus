@@ -46,6 +46,8 @@ function SignupFormPage() {
         email,
         username,
         password,
+        first_name:firstName,
+        last_name:lastName,
       })
       );
 

@@ -21,8 +21,7 @@ const createGroup = (group)=>{
 export const createGroupThunk = (group)=>async (dispatch) => {
     const response = await fetch('/api/groups/new',{
         method:"POST",
-        headers:{'Content-Type':"application/json"},
-        body: JSON.stringify(group)
+        body: group
     })
 
     const data = await response.json()
@@ -252,8 +251,7 @@ const updateGroup = (group)=>{
 export const updateGroupThunk = (groupId,dataObj)=>async (dispatch)=>{
     const response = await fetch(`/api/groups/${groupId}`,{
         method:'PUT',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify(dataObj)
+        body:dataObj
     })
     const data = await response.json()
     if(response.ok){

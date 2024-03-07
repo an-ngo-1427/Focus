@@ -47,6 +47,14 @@ body{
 
 button{
     cursor: pointer;
+    border: solid 2px black;
+    padding:5px;
+    width:fit-content
+}
+
+button:hover{
+    cursor: pointer;
+    background-color: rgb(158, 127, 127);
 }
 
 .form-link:hover{

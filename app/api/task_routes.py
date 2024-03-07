@@ -19,8 +19,8 @@ def getAllTasks():
 @login_required
 def getTasksByUserId(userId):
     tasks = Task.query.filter(Task.user_id == userId).all()
-    if(not tasks):
-        return {'message':'Tasks not found for user'},404
+    # if(not tasks):
+    #     return {'message':'Tasks not found for user'},404
 
     return {"Tasks":[task.to_dict() for task in tasks]}
 
