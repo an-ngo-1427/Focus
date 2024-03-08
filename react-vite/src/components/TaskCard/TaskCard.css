@@ -8,7 +8,7 @@
     max-width: 400px;
     margin:auto;
     position:relative;
-
+    border-radius: 4px ;
 }
 
 .hidden{
@@ -53,4 +53,11 @@
     bottom:5px;
     right:5px;
     font-size: small;
+}
+
+.add-task{
+    cursor: pointer;
+    position: absolute;
+    right: -19px;
+    top: 3px;
 }

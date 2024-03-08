@@ -73,5 +73,9 @@ button:hover{
 
 form{
     padding:20px;
-    height:450px;
+    height:500px;
+}
+
+.task-delete,.form-link{
+    align-self: flex-end;
 }
