@@ -70,9 +70,9 @@ function TaskCard({ task, group }) {
                         modalComponent={<TaskForm task={task} group={group} />}
                         buttonText={<MdMenuOpen />}
                     />}
-                    {/* {group && <div>{task.completed? 'completed':'not completed'}</div>} */}
+
                     {task.user && task.group_id && <div className='user'><MdOutlinePerson /> {task.user.first_name} </div>}
-                    {!task.user && !task.completed && <div onClick={addTask}><IoMdAdd /></div>}
+                    {!task.user && !task.completed && <div className='add-task' onClick={addTask}><IoMdAdd /></div>}
                 </div>
                 {/* {group && <div>Group: {group.name}</div>} */}
 

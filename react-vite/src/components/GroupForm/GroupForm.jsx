@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom"
 import { FaRegTrashAlt } from "react-icons/fa";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem"
 import DeleteTask from "../DeleteTask/DeleteTask"
+import './GroupForm.css'
 function GroupForm({ group }) {
     const [name, setName] = useState("")
     const [image, setImage] = useState("")
@@ -39,10 +40,7 @@ function GroupForm({ group }) {
         if (Object.values(err).length) return setFormerr(true)
         else {
             const formData = new FormData()
-            // const groupObj = {
-            //     name,
-            //     image_url: imageUrl
-            // }
+
             formData.append('name',name)
             formData.append('image',image)
             let currGroup;
@@ -62,14 +60,9 @@ function GroupForm({ group }) {
         closeModal()
     }
 
-    // const deleteGroup = (e)=>{
-    //     e.preventDefault()
-    //     dispatch(deleteGroupThunk(group.id)).
-    //     then(()=>{navigate('/groups')})
-    //     closeModal()
-    // }
+
     return (
-        <>
+        <div className=" group-form">
             <span onClick={handleCancel} className="form-link">cancel</span>
             <form
                 className="user-auth"
@@ -103,7 +96,7 @@ function GroupForm({ group }) {
                     />
 
                 </div>}
-        </>
+        </div>
     )
 }
 
