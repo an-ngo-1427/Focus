@@ -2,6 +2,11 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding:5px;
+    padding:10px;
     width:300px;
+
+}
+
+.members{
+    padding:15px;
 }

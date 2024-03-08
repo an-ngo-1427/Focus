@@ -1,0 +1,17 @@
+.delete-task-modal{
+    display:flex;
+    flex-direction: column;
+    gap:15px;
+    align-items: center;
+    padding:25px;
+}
+
+.delete-task-buttons>button{
+    padding:5px;
+}
+
+.delete-task-buttons{
+    display:flex;
+    flex-direction: row;
+    gap:15px;
+}

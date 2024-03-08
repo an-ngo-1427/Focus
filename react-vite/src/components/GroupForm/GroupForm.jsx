@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { createGroupThunk, deleteGroupThunk, getUserOwnGroupsThunk, updateGroupThunk } from "../../redux/group"
+import { createGroupThunk, getUserOwnGroupsThunk, updateGroupThunk } from "../../redux/group"
 import { useModal } from "../../context/Modal"
 import { useNavigate } from "react-router-dom"
 import { FaRegTrashAlt } from "react-icons/fa";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem"
+import DeleteTask from "../DeleteTask/DeleteTask"
 function GroupForm({ group }) {
     const [name, setName] = useState("")
     const [image, setImage] = useState("")
@@ -22,11 +24,6 @@ function GroupForm({ group }) {
         }
         let errObj = {}
         if (!name) errObj.name = 'Group name is required'
-        // const allowedFile = ['jpeg', 'png', 'gif', 'jpg']
-        // if (imageUrl.length) {
-        //     let fileExt = imageUrl.substring(imageUrl.length - 3)
-        //     if (!allowedFile.includes(fileExt)) errObj.imageUrl = 'Allowed file extenstions jpeg, png, gif, jpg'
-        // }
 
         setErr(errObj)
     }, [name, image])
@@ -65,12 +62,12 @@ function GroupForm({ group }) {
         closeModal()
     }
 
-    const deleteGroup = (e)=>{
-        e.preventDefault()
-        dispatch(deleteGroupThunk(group.id)).
-        then(()=>{navigate('/groups')})
-        closeModal()
-    }
+    // const deleteGroup = (e)=>{
+    //     e.preventDefault()
+    //     dispatch(deleteGroupThunk(group.id)).
+    //     then(()=>{navigate('/groups')})
+    //     closeModal()
+    // }
     return (
         <>
             <span onClick={handleCancel} className="form-link">cancel</span>
@@ -98,7 +95,14 @@ function GroupForm({ group }) {
                 {formErr && <div style={{ 'color': 'red' }}>{err.imageUrl}</div>}
                 <button type="submit" >{group ? 'Update group' : 'Create Group'}</button>
             </form>
-            {group && <div style={{'color':'red'}} onClick={(e)=>{deleteGroup(e)}}><FaRegTrashAlt/> Delete group</div>}
+            {group && <div className = 'task-delete'>
+                    <FaRegTrashAlt />
+                    <OpenModalMenuItem
+                        itemText='Delete Group'
+                        modalComponent={<DeleteTask group={group}/>}
+                    />
+
+                </div>}
         </>
     )
 }

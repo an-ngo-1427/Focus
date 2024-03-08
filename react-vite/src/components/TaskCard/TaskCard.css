@@ -4,10 +4,11 @@
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
-    height:80px;
-    padding:5px;
-    max-width: 600px;
-    margin:auto
+    padding:10px;
+    max-width: 400px;
+    margin:auto;
+    position:relative;
+
 }
 
 .hidden{
@@ -17,10 +18,39 @@
 .task-main{
     display: flex;
     flex-direction: column;
-    gap:10px;
+    gap:2px;
+    width:80%;
 }
 
 .task-details{
     display: flex;
     gap:5px;
+    max-width:70%;
+    overflow-wrap:break-word;
+}
+
+.task-main>ul{
+    margin-left: -26px !important;
+    width:fit-content;
+}
+
+.edit-button{
+    position:absolute;
+    top: 0px;
+    right:0px;
+    background-color: inherit;
+    border:none;
+}
+
+.user{
+    position:absolute;
+    top:4px;
+    right:50px;
+}
+
+.extra-info{
+    position:absolute;
+    bottom:5px;
+    right:5px;
+    font-size: small;
 }

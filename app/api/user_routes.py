@@ -13,7 +13,7 @@ def users():
     """
 
     users = User.query.all()
-    print(users)
+
     return {'users': [user.to_dict() for user in users]}
 
 

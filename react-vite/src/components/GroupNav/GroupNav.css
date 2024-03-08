@@ -48,3 +48,8 @@
     padding-bottom: 5px;
     color:inherit;
 }
+body{
+    padding-left:100px;
+    padding-right:100px;
+    margin:0px !important;
+}

@@ -1,0 +1,12 @@
+.task-delete{
+    display: flex;
+    margin-top:15px;
+    width:fit-content;
+}
+.task-delete:hover{
+    cursor: pointer;
+    color:red;
+}
+.task-delete>li{
+    list-style: none;
+}
