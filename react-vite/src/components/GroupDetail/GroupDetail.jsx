@@ -24,31 +24,28 @@ function GroupDetail() {
     return (
         <div className="group-page">
             <div className='group-info'>
-
-                    <img className='group-image' src={currGroup.image_url} />
-                    <div className="group-manage">
-                        <h1>{currGroup.name}</h1>
-                        {mainUser.id == currGroup.organizer?.id &&
-                            <OpenModalMenuItem
-                                itemText={'Edit group'}
-                                modalComponent={<GroupForm group={currGroup} />}
-                            />
-                        }
-                        {/* {user.id == group.organizer.id && <button>Add members</button>} */}
-                        {mainUser.id == currGroup.organizer?.id &&
-                            <OpenModalMenuItem
-                                itemText={'+ Add Task'}
-                                modalComponent={<GroupTaskForm group={currGroup} />}
-                            />
-
-                        }
-
-                    </div>
-
-
-
+                <img className='group-image' src={currGroup.image_url} />
+                <div className="group-manage">
+                    <h1>{currGroup.name}</h1>
+                    {mainUser.id == currGroup.organizer?.id &&
+                        <OpenModalMenuItem
+                            itemText={'Edit group'}
+                            modalComponent={<GroupForm group={currGroup} />}
+                        />
+                    }
+                    {/* {user.id == group.organizer.id && <button>Add members</button>} */}
+                    {mainUser.id == currGroup.organizer?.id &&
+                        <OpenModalMenuItem
+                            itemText={'+ Add Task'}
+                            modalComponent={<GroupTaskForm group={currGroup} />}
+                        />
+                    }
+                </div>
             </div>
+
                 <GroupCard group={currGroup}></GroupCard>
+
+
             <h2>members</h2>
             {currGroup.organizer?.id == mainUser.id &&
                 <OpenModalMenuItem

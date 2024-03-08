@@ -161,7 +161,7 @@ function TaskForm({ task, group }) {
 
                 </div>
                 <div className='field-labels'>
-                    notes
+                    Notes
                 </div>
                 <textarea
                     placeholder="Notes"
@@ -170,7 +170,7 @@ function TaskForm({ task, group }) {
                     onChange={(e) => { setNotes(e.target.value) }}
                 />
                 <div className='field-labels'>
-                    links
+                    Links
                 </div>
                 <input
                     placeholder="links"
@@ -189,7 +189,7 @@ function TaskForm({ task, group }) {
                 />
                 {formErr && err.deadline && <div style={{ 'color': 'red' }}>{err.deadline}</div>}
                 <div className='field-labels'>
-                    tag
+                    Tag
                 </div>
                 <select
                     value={tag}
@@ -206,7 +206,7 @@ function TaskForm({ task, group }) {
                     <option value="creativity">Creativity</option>
                 </select>
                 <div className='field-labels'>
-                    difficulty
+                    Difficulty
                 </div>
                 <select
                     name='difficulty'

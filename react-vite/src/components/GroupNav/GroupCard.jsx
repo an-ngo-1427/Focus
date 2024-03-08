@@ -12,7 +12,7 @@ function GroupCard({ group }) {
     // }
     if(!Object.values(group).length) return null
     return (
-        <div>
+        <div className='group-tasks'>
             {groupTasks?.map(task => <TaskCard key={task.id} task={task} group={group} />)}
 
         </div>

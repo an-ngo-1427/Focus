@@ -93,7 +93,7 @@ function GroupTaskForm({group}){
 
                 </div>
                 <div className='field-labels'>
-                    notes
+                    Notes
                 </div>
                 <textarea
                     placeholder="Notes"
@@ -102,7 +102,7 @@ function GroupTaskForm({group}){
                     onChange={(e) => { setNotes(e.target.value) }}
                 />
                 <div className='field-labels'>
-                    links
+                    Links
                 </div>
                 <input
                     placeholder="links"
@@ -121,7 +121,7 @@ function GroupTaskForm({group}){
                 />
                 {formErr && err.deadline && <div style={{ 'color': 'red' }}>{err.deadline}</div>}
                 <div className='field-labels'>
-                    tag
+                    Tag
                 </div>
                 <select
                     value={tag}
@@ -138,7 +138,7 @@ function GroupTaskForm({group}){
                     <option value="creativity">Creativity</option>
                 </select>
                 <div className='field-labels'>
-                    difficulty
+                    Difficulty
                 </div>
                 <select
                     name='difficulty'
