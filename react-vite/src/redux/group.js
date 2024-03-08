@@ -48,6 +48,7 @@ export const createGroupTaskThunk = (groupId,task)=>async (dispatch)=>{
     })
 
     const data = await response.json()
+    console.log('this is data',data)
     if(response.ok){
         dispatch(createGroupTask(data))
     }
@@ -123,6 +124,10 @@ export const userOwnGroupReducer = (state=initialState,action)=>{
             newObj = {...state}
             return newObj;
         }
+        case(CREATE_GROUP_TASK):{
+            let newObj={...state,[action.group.id]:action.group}
+            return newObj
+        }
     }
     return state
 }
@@ -137,10 +142,10 @@ function userGroupsReducer (state = initialState,action){
             action.groups.Groups.forEach(group=>newObj[group.id] = group)
             return newObj
         }
-        case(CREATE_GROUP_TASK):{
-            let newObj={...state,[action.group.id]:action.group}
-            return newObj
-        }
+        // case(CREATE_GROUP_TASK):{
+        //     let newObj={...state,[action.group.id]:action.group}
+        //     return newObj
+        // }
 
     }
     return state

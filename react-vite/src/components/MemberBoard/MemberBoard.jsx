@@ -24,7 +24,7 @@ function MembersBoard({group}) {
 
     },[dispatch,group])
     return (
-        <>
+        <div className='members'>
             <h1>Add Members</h1>
             <div className="member-form">
                 {newUsers.map(user=>(
@@ -35,7 +35,7 @@ function MembersBoard({group}) {
                     ))}
             </div>
             <div onClick={closeModal} className='form-link'>cancel</div>
-        </>
+        </div>
     )
 }
 

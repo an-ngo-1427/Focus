@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
-import { createUserTaskThunk, deleteUserTaskThunk, updateUserTaskThunk } from "../../redux/task"
+import { createUserTaskThunk, updateUserTaskThunk } from "../../redux/task"
 import { useDispatch, useSelector } from "react-redux"
 import { useModal } from "../../context/Modal"
 import { FaRegTrashAlt } from "react-icons/fa";
-import { getGroupDetailsThunk, getUserGroupsThunk, updateGroupTaskThunk } from "../../redux/group";
+import {getUserGroupsThunk, updateGroupTaskThunk } from "../../redux/group";
 import { useNavigate } from "react-router-dom";
-
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import DeleteTask from "../DeleteTask/DeleteTask";
+import './TaskForm.css'
 function TaskForm({ task, group }) {
 
     const [title, setTitle] = useState("")
@@ -27,7 +29,7 @@ function TaskForm({ task, group }) {
     // console.log(Date.toISOString(deadline))
 
     useEffect(() => {
-        if(!user){
+        if (!user) {
             closeModal()
             return navigate('/login')
         }
@@ -45,16 +47,16 @@ function TaskForm({ task, group }) {
     useEffect(() => {
         if (task) {
             setTitle(task.title)
-            setNotes(task.notes? task.notes:"")
-            setLinks(task.links? task.links:"")
+            setNotes(task.notes ? task.notes : "")
+            setLinks(task.links ? task.links : "")
             let dateString = new Date(task.deadline)
             dateString = dateString.toISOString().substring(0, 10)
             setDeadline(dateString)
-            setTag(task.tag? task.tag:"")
-            setDifficulty(task.difficulty? task.difficulty:"")
+            setTag(task.tag ? task.tag : "")
+            setDifficulty(task.difficulty ? task.difficulty : "")
             // setGroupId(task.group_id ? task.group_id : "")
-            if (group){
-                if(task.user){
+            if (group) {
+                if (task.user) {
                     setUserId(task.user?.id)
                 }
             }
@@ -93,19 +95,19 @@ function TaskForm({ task, group }) {
                     tag,
                     difficulty
                 }
-                if(group){
+                if (group) {
                     updateObj.user_id = userId
 
-                    dispatch(updateGroupTaskThunk(group.id,task.id,updateObj)).
-                    then(()=>dispatch(getUserGroupsThunk())).
-                    then(result => {
-                        if (result.errors) {
-                            return window.alert(result.errors)
-                        } else {
-                            return closeModal()
-                        }
-                    })
-                }else{
+                    dispatch(updateGroupTaskThunk(group.id, task.id, updateObj)).
+                        then(() => dispatch(getUserGroupsThunk())).
+                        then(result => {
+                            if (result.errors) {
+                                return window.alert(result.errors)
+                            } else {
+                                return closeModal()
+                            }
+                        })
+                } else {
                     dispatch(updateUserTaskThunk(updateObj, task.id))
                         .then(result => {
                             if (result.errors) {
@@ -122,11 +124,6 @@ function TaskForm({ task, group }) {
 
     }
 
-    const handleDelete = () => {
-        dispatch(deleteUserTaskThunk(task.id))
-        .then(()=>{ if (group) dispatch(getGroupDetailsThunk(group.id))})
-        .then(closeModal())
-    }
     return (
         <div>
             <form
@@ -184,7 +181,7 @@ function TaskForm({ task, group }) {
                 <input
                     type='date'
                     name='deadline'
-                    value={deadline? deadline:""}
+                    value={deadline ? deadline : ""}
                     onChange={(e) => { setDeadline(e.target.value) }}
                 />
                 {formErr && err.deadline && <div style={{ 'color': 'red' }}>{err.deadline}</div>}
@@ -221,11 +218,20 @@ function TaskForm({ task, group }) {
                 </select>
 
                 <button type='submit' >{task ? 'Update Task' : 'Create Task'}</button>
-                {task && <div
+                {/* {task && <div
                     className='task-delete' style={{ 'color': 'red' }}
                     onClick={handleDelete}
                 >
                     <FaRegTrashAlt />Delete Task
+                </div>
+                } */}
+                {task && <div className = 'task-delete'>
+                    <FaRegTrashAlt />
+                    <OpenModalMenuItem
+                        itemText='Delete Task'
+                        modalComponent={<DeleteTask task={task} taskGroup={group}/>}
+                    />
+
                 </div>
                 }
             </form>
