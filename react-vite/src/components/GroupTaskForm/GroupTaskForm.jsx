@@ -105,6 +105,7 @@ function GroupTaskForm({group}){
                     Links
                 </div>
                 <input
+                    type="url"
                     placeholder="links"
                     name='links'
                     value={links}

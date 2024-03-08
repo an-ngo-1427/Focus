@@ -39,8 +39,12 @@
 
 body{
     background-color: rgb(249, 241, 241);
+    padding-bottom: 50px;
 }
 
+/* #root{
+    padding-bottom: 20px;
+} */
 .group-page{
     margin-left: 250px;
 }
