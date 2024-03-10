@@ -46,6 +46,9 @@ function HomePage() {
         setSortedTask([...sortedArr])
     }
 
+    useEffect(()=>{
+        setSortedTask([...Object.values(userTasks)])
+    },[userTasks])
     useEffect(() => {
         dispatch(getUserTasksThunk(user?.id))
         dispatch(getUserGroupsThunk())
@@ -54,8 +57,7 @@ function HomePage() {
 
         }
 
-        console.log('entered sorted', Object.values(userTasks))
-    }, [dispatch, sortedTask])
+    }, [dispatch])
 
     const checkBox = (task) => {
         if (!task.completed) {
