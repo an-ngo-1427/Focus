@@ -52,3 +52,33 @@
     cursor: pointer;
     background-color: rgb(158, 127, 127);
 }
+
+.sort-dropdown{
+    position: relative;
+    display: inline-block;
+    align-self: flex-end;
+}
+.dropdown-options {
+    display: none;
+    position: absolute;
+    overflow: auto;
+
+  }
+.sort-dropdown:hover .dropdown-options{
+    cursor: pointer;
+    display:flex;
+    flex-direction: column;
+    width:150px;
+    background-color: rgb(158, 127, 127);
+    z-index: 1;
+    padding:5px;
+    right:5px;
+}
+
+.sort-button{
+    cursor: pointer;
+    background-color: white;
+    padding:5px;
+    border-radius: 3px;
+    margin-right:7px;
+}
