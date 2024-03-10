@@ -171,6 +171,7 @@ function TaskForm({ task, group }) {
                 </div>
                 <input
                     placeholder="links"
+                    type='url'
                     name='links'
                     value={links}
                     onChange={(e) => { setLinks(e.target.value) }}
