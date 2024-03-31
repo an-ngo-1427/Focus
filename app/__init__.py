@@ -11,7 +11,7 @@ from .api.task_routes import task_routes
 from app.api.group_routes import group_routes
 from .seeds import seed_commands
 from .config import Config
-
+from .api.reward_routes import reward_routes
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
 
 # Setup login manager
@@ -32,6 +32,7 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(task_routes,url_prefix = '/api/tasks')
 app.register_blueprint(group_routes, url_prefix = '/api/groups')
+app.register_blueprint(reward_routes, url_prefix = '/api/rewards')
 db.init_app(app)
 Migrate(app, db)
 

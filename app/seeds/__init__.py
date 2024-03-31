@@ -4,6 +4,7 @@ from .groups import undo_groups,seed_groups
 from .tasks import undo_tasks,seed_tasks
 from .user_groups import undo_user_groups,seed_user_groups
 from app.models.db import db, environment, SCHEMA
+from .rewards import seed_rewards,undo_rewards
 
 # Creates a seed group to hold our commands
 # So we can type `flask seed --help`
@@ -21,8 +22,10 @@ def seed():
         undo_tasks()
         undo_user_groups()
         undo_groups()
+        undo_rewards()
         undo_users()
     seed_users()
+    seed_rewards()
     seed_groups()
     seed_user_groups()
     seed_tasks()
@@ -35,5 +38,6 @@ def undo():
     undo_tasks()
     undo_user_groups()
     undo_groups()
+    undo_rewards()
     undo_users()
     # Add other undo functions here

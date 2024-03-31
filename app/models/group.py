@@ -22,6 +22,9 @@ class Group(db.Model):
     users = db.relationship('User',secondary = 'user_groups',back_populates = 'groups')
     organizer = db.relationship('User',back_populates = 'owner_groups')
     tasks = db.relationship('Task',back_populates = 'group',cascade = "all, delete")
+
+    # relationship between Rewards and group
+    rewards = db.relationship('Reward',back_populates='group',cascade = 'all, delete')
     def to_dict(self):
         return{
             "id":self.id,
@@ -29,5 +32,6 @@ class Group(db.Model):
             "users":[user.to_dict() for user in self.users],
             "organizer" : self.organizer.to_dict(),
             "tasks": [task.to_dict() for task in self.tasks],
-            "image_url": self.image_url
+            "image_url": self.image_url,
+            "rewards": [reward.to_dict() for reward in self.rewards]
         }
