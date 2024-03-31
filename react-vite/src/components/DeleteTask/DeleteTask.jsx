@@ -14,7 +14,7 @@ function DeleteTask({ task, taskGroup, group }) {
             e.preventDefault()
             await dispatch(deleteUserTaskThunk(task.id))
             if (taskGroup) {
-                console.log('entered')
+
                 await dispatch(getGroupDetailsThunk(taskGroup.id))
             }
 

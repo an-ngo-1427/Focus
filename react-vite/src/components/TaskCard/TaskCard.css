@@ -40,8 +40,16 @@
     right:0px;
     background-color: inherit;
     border:none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: stretch;
 }
 
+.show{
+    background-color: inherit;
+    border:none;
+}
 .user{
     position:absolute;
     top:4px;
@@ -57,7 +65,12 @@
 
 .add-task{
     cursor: pointer;
-    position: absolute;
-    right: -19px;
-    top: 3px;
+    width:100%;
+    height: 100%;
+    text-align: center;
+    padding-top:3px;
+}
+
+.add-task:hover{
+    background-color: rgb(158, 127, 127);
 }

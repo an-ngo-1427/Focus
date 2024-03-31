@@ -28,8 +28,9 @@
 
 .create-group{
     width: 100%;
-    height: 41px;
-    background-color: rgb(212, 143, 143)
+    height: 35px;
+    background-color: rgb(212, 143, 143);
+    margin-bottom: 15px;
 }
 
 .create-group:hover{

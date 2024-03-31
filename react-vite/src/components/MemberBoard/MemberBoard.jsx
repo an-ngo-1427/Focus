@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { getUsersThunk } from "../../redux/session"
 import { addMemberThunk} from "../../redux/group"
 import './MemberBoard.css'
+
 function MembersBoard({group}) {
     const { closeModal } = useModal()
     const dispatch = useDispatch()
