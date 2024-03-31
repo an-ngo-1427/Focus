@@ -20,6 +20,10 @@ class User(db.Model, UserMixin):
     user_tasks = db.relationship('Task',back_populates='user')
 
     owner_groups = db.relationship('Group',back_populates = 'organizer')
+
+    # rewards table relationships
+    gifted_points = db.relationship('Reward',back_populates='receiver',foreign_keys='Reward.receiver_id')
+    received_points = db.relationship('Reward',back_populates = 'sender',foreign_keys = 'Reward.gifter_id')
     @property
     def password(self):
         return self.hashed_password

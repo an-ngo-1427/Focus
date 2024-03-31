@@ -60,15 +60,15 @@ function GroupForm({ group }) {
         closeModal()
     }
 
-    console.log('this is group',group)
+    ('this is group',group)
     return (
-        <div style={{'padding':'15px'}}>
-            <span onClick={handleCancel} className="form-link">cancel</span>
+        <div>
             <form
                 className="user-auth group-form"
                 onSubmit={handleSubmit}
                 encType = "multipart/form-data"
             >
+            <span onClick={handleCancel} className="form-link">cancel</span>
                 <div className="field-labels">
                     Group Name
                 </div>

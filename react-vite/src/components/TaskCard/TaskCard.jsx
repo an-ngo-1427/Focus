@@ -12,7 +12,7 @@ import { FaTag } from "react-icons/fa";
 function TaskCard({ task, group }) {
     const dispatch = useDispatch()
     const user = useSelector(state => state.session.user)
-    console.log('this is group',group)
+
     const addTask = () => {
         dispatch(assignUserTaskThunk(task.id)).
             then(result => {
@@ -42,7 +42,7 @@ function TaskCard({ task, group }) {
                         <span>{task.title}</span>
                     </div>
                     <ul>
-                        <li style={{'fontSize':'small'}}className='task-details'>
+                        <li style={{ 'fontSize': 'small' }} className='task-details'>
                             {task.notes}
                         </li>
                         {task.links &&
@@ -53,7 +53,7 @@ function TaskCard({ task, group }) {
                     </ul>
                     {task.deadline &&
                         <div className='task-details'
-                            style={{'fontSize':'small'}}
+                            style={{ 'fontSize': 'small' }}
                         >
                             <SlCalender />
                             {task.deadline.substring(5, 16)}
@@ -65,14 +65,17 @@ function TaskCard({ task, group }) {
                     {task.tag && <div className='tag'><FaTag /> {task.tag}</div>}
                 </div>
                 <div className='task-edit'>
-                    {<OpenModalButton
-                        className={`edit-button ${setButtonName()}`}
-                        modalComponent={<TaskForm task={task} group={group} />}
-                        buttonText={<MdMenuOpen />}
-                    />}
+                    <div className='edit-button'>
+                        {<OpenModalButton
+                            className={`${setButtonName()}`}
+                            modalComponent={<TaskForm task={task} group={group} />}
+                            buttonText={<MdMenuOpen />}
+                        />}
+                        {!task.user && !task.completed && <div className='add-task' onClick={addTask}><IoMdAdd /></div>}
+
+                    </div>
 
                     {task.user && task.group_id && <div className='user'><MdOutlinePerson /> {task.user.first_name} </div>}
-                    {!task.user && !task.completed && <div className='add-task' onClick={addTask}><IoMdAdd /></div>}
                 </div>
                 {/* {group && <div>Group: {group.name}</div>} */}
 

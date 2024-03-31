@@ -24,3 +24,60 @@
     border: solid 2px black;
     padding:5px;
 }
+
+
+.task-button.clicked,.member-button.clicked,.reward-button.clicked{
+    /* background-color: rgb(158, 127, 127); */
+    border-bottom: 4px solid rgb(158, 127, 127);
+}
+
+.user-dropdown{
+    display:flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.user-dropdown:hover{
+    background-color: rgb(158, 127, 127);
+    cursor: pointer;
+}
+.user-options{
+    display: none;
+}
+.user-options.show{
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    top: 20px;
+    background-color: white;
+    border:1px solid black;
+}
+
+.task-button,.member-button,.reward-button{
+    border: none;
+    background-color: inherit;
+}
+
+.group-tabs{
+    border-bottom: 2px solid rgba(1, 1, 1, 0.471);
+    position:relative;
+    margin-bottom: 30px;
+}
+
+.member-buttons{
+    width:80px;
+    text-align: left;
+    border: none;
+}
+
+.add-member{
+    list-style:none;
+    align-self: flex-end;
+}
+
+.member-window{
+    display: flex;
+    flex-direction: column;
+}

@@ -8,6 +8,7 @@ import thunk from "redux-thunk";
 import sessionReducer, { getUsersReducer } from "./session";
 import userTasksReducer from "./task";
 import userGroupsReducer, { getCurrGroupReducer, userOwnGroupReducer } from "./group";
+import groupRewardsReducer from "./reward";
 // import { groupTaskReducer } from "./group";
 const rootReducer = combineReducers({
   session: sessionReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   currGroup : getCurrGroupReducer,
   userOwnGroups: userOwnGroupReducer,
   allUsers : getUsersReducer,
+  groupRewards : groupRewardsReducer
 });
 
 let enhancer;

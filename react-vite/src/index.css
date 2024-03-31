@@ -17,7 +17,7 @@
     top: 1px;
     left: 20px;
     z-index:1;
-    background-color: white;
+    background-color: inherit;
     width: fit-content;
     padding:5px;
 }
@@ -74,8 +74,16 @@ button:hover{
 form{
     padding:20px;
     height:500px;
+    background-color: rgb(249, 241, 241);
 }
 
 .task-delete,.form-link{
     align-self: flex-end;
+}
+.hidden{
+    display: none;
+}
+
+a.active{
+    border-bottom: 4px solid rgb(158, 127, 127);
 }
