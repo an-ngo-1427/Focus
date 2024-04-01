@@ -48,7 +48,7 @@ export const createGroupTaskThunk = (groupId,task)=>async (dispatch)=>{
     })
 
     const data = await response.json()
-    console.log('this is data',data)
+
     if(response.ok){
         dispatch(createGroupTask(data))
     }

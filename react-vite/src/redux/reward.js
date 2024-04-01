@@ -12,7 +12,7 @@ const getGroupRewards = (rewards) =>{
 export const getGroupRewardsThunk = (groupId) => async (dispatch)=>{
     const response = await fetch(`/api/rewards/groups/${groupId}`)
     const data = await response.json()
-    console.log('from group thunk',data)
+
     if(response.ok){
         dispatch(getGroupRewards(data))
     }

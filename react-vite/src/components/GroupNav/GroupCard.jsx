@@ -49,7 +49,7 @@ function GroupCard({ group }) {
     const openMenu = (e) => {
         e.preventDefault()
         e.stopPropagation()
-        console.log(e.currentTarget.classList[1])
+
         if (!showMenu) setShowMenu(e.currentTarget.classList[1])
         else setShowMenu(false)
 
