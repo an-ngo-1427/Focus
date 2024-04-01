@@ -22,7 +22,7 @@ def getUserRewards(userId):
 @login_required
 def getGroupRewards(groupId):
     rewards = Reward.query.filter(Reward.group_id == groupId).all()
-    print('rewards-------------',rewards)
+
     return {'Rewards':[reward.to_dict() for reward in rewards]},200
 
 # adding reward points
