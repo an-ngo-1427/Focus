@@ -1,5 +1,5 @@
 # Focus
-
+   Focus is a web application to help with tasks managements and working with team to increase productivity
 # USER
 - # Sign Up
     * As an unregistered and unauthorized user, I want to be able to sign up for the website via a sign-up form.
