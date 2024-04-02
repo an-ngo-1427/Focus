@@ -1,5 +1,5 @@
 # Focus
-   Focus is a web application to help with tasks managements and working with team to increase productivity
+   Focus is a web application to help users create todo lists and manage their tasks easily. Focus also has group feature where users can work together in groups.
 # USER
 - # Sign Up
     * As an unregistered and unauthorized user, I want to be able to sign up for the website via a sign-up form.
