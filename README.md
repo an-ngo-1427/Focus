@@ -27,6 +27,30 @@
 ### Start up the servers
   * run `pipenv shell flask run` in the root project folder
   * run `npm run dev` in `react-vite` folder
+
+## Technologies
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?logo=javascript&logoColor=%23F7DF1E)
+![Python](https://img.shields.io/badge/python-3670A0?logo=python&logoColor=ffdd54)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?logo=css3&logoColor=white)
+![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?logo=npm&logoColor=white)
+![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?logo=markdown&logoColor=white)
+![React](https://img.shields.io/badge/react-%2320232a.svg?logo=react&logoColor=%2361DAFB)
+![Redux](https://img.shields.io/badge/redux-%23593d88.svg?logo=redux&logoColor=white)
+![React Router](https://img.shields.io/badge/React_Router-CA4245?logo=react-router&logoColor=white)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?logo=vite&logoColor=white)
+![ESLint](https://img.shields.io/badge/ESLint-4B3263?logo=eslint&logoColor=white)
+![Flask](https://img.shields.io/badge/flask-%23000.svg?logo=flask&logoColor=white)
+![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?logo=ubuntu&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=black)
+![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?logo=amazon-aws&logoColor=white)
+![Static Badge](https://img.shields.io/badge/Amazon%20S3-green?logo=amazon%20s3&logoColor=white)
+![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?logo=sqlite&logoColor=white)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?logo=postgresql&logoColor=white)
+![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?logo=mysql&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?logo=docker&logoColor=white)
+![Postman](https://img.shields.io/badge/Postman-FF6C37?logo=postman&logoColor=white)
+![Render](https://img.shields.io/badge/Render-%46E3B7.svg?logo=render&logoColor=white)
 # USER
 - # Sign Up
     * As an unregistered and unauthorized user, I want to be able to sign up for the website via a sign-up form.
