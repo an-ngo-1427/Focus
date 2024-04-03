@@ -1,5 +1,32 @@
 # Focus
    Focus is a web application to help users create todo lists and manage their tasks easily. Focus also has group feature where users can work together in groups.
+   ## Installation guide
+
+### Clone the repo
+  * run `git@github.com:an-ngo-1427/Focus.git` in a desired directory
+
+### Install dependencies
+  * run `pipenv install -r requirements.txt` in the root project folder
+  * run `npm install` in `react-vite` folder
+
+### Create and ensure that the .env file has the following fields
+(You will need to create an AWS S3 Bucket)
+  * SECRET_KEY
+  * DATABASE_URL
+  * SCHEMA
+  * S3_BUCKET
+  * S3_KEY
+  * S3_SECRET
+
+### Migration
+  * run `pipenv shell flask db upgrade` in the root project folder
+
+### Optional seedings
+  * run `pipenv shell flask seed reset` in the root project folder
+
+### Start up the servers
+  * run `pipenv shell flask run` in the root project folder
+  * run `npm run dev` in `react-vite` folder
 # USER
 - # Sign Up
     * As an unregistered and unauthorized user, I want to be able to sign up for the website via a sign-up form.
