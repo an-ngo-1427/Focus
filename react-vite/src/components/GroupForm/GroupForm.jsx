@@ -18,7 +18,7 @@ function GroupForm({ group }) {
     const user = useSelector(state => state.session.user)
 
     useEffect(() => {
-        if (!user){
+        if (!user) {
             closeModal()
             navigate('/login')
 
@@ -33,7 +33,7 @@ function GroupForm({ group }) {
         if (group) {
             setName(group.name)
         }
-    },[group])
+    }, [group])
     const handleSubmit = async (e) => {
         e.preventDefault()
 
@@ -41,8 +41,8 @@ function GroupForm({ group }) {
         else {
             const formData = new FormData()
 
-            formData.append('name',name)
-            formData.append('image',image)
+            formData.append('name', name)
+            formData.append('image', image)
             let currGroup;
             if (!group) {
                 currGroup = await dispatch(createGroupThunk(formData))
@@ -60,15 +60,15 @@ function GroupForm({ group }) {
         closeModal()
     }
 
-    ('this is group',group)
+    ('this is group', group)
     return (
         <div>
             <form
                 className="user-auth group-form"
                 onSubmit={handleSubmit}
-                encType = "multipart/form-data"
+                encType="multipart/form-data"
             >
-            <span onClick={handleCancel} className="form-link">cancel</span>
+                <span onClick={handleCancel} className="form-link">cancel</span>
                 <div className="field-labels">
                     Group Name
                 </div>
@@ -82,20 +82,20 @@ function GroupForm({ group }) {
                 </div>
                 <input
                     type='file'
-                    accept = "image/*"
+                    accept="image/*"
                     onChange={(e) => setImage(e.target.files[0])}
                 />
                 {formErr && <div style={{ 'color': 'red' }}>{err.imageUrl}</div>}
                 <button type="submit" >{group ? 'Update group' : 'Create Group'}</button>
-            </form>
-            {group && <div className = 'task-delete'>
+                {group && <div className='task-delete'>
                     <FaRegTrashAlt />
                     <OpenModalMenuItem
                         itemText='Delete Group'
-                        modalComponent={<DeleteTask group={group}/>}
+                        modalComponent={<DeleteTask group={group} />}
                     />
 
                 </div>}
+            </form>
         </div>
     )
 }

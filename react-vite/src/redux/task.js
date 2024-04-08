@@ -2,7 +2,7 @@
 // getting all task for a user
 import Cookies from 'js-cookie';
 const GET_USER_TASKS = '/tasks/user/GET_USER_TASKS'
-const getUserTasks = (data)=>{
+export const getUserTasks = (data)=>{
     return{
         type:GET_USER_TASKS,
         data

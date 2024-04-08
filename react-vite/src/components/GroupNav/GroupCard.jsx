@@ -65,7 +65,8 @@ function GroupCard({ group }) {
             {show === 'tasks' &&
                 <div id='tasks' className='group-tasks'>
                     {groupTasks?.map(task => (
-                        <div key={task.id}
+                        <div
+                            key={task.id}
                             className="task-box"
                         >
 

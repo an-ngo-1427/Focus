@@ -108,7 +108,6 @@
 
 .add-task-button{
     align-self:  end;
-    margin-right: 150px;
     border:2px solid black !important;
 }
 
@@ -116,4 +115,51 @@
     display: flex;
     flex-direction: column;
 
+}
+
+footer{
+    display: flex;
+    flex-direction:row;
+    gap:50px;
+    padding-left: 150px;
+    padding-right:150px;
+    margin-top:50px;
+    background-color: rgb(223, 191, 191);
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.footer-link>a{
+    text-decoration: none;
+    color:black;
+}
+
+.footer-title{
+    font-weight: bold;
+
+}
+.footer-detail>a{
+    text-decoration: none;
+    color: black;
+}
+.footer-container{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+
+.footer-detail{
+   display: flex;
+   align-items: center;
+}
+
+.homepage-int{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width:60%;
+    margin: auto;
+}
+
+.search-box{
+    width:70%;
 }
