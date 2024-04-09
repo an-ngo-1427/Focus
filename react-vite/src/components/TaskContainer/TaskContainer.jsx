@@ -17,6 +17,7 @@ function TaskContainer({ groupTasks, personalTasks }) {
 
 
     useEffect(()=>{
+
         if(groupTasks){
             setActiveTasks(groupTasks.filter(task => !task.completed))
             setScheduledTasks(groupTasks.filter(task => (task.deadline && !task.completed)))
