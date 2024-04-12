@@ -28,7 +28,6 @@ function TaskContainer({ groupTasks, personalTasks }) {
             setScheduledTasks(personalTasks.filter(task => (task.deadline && !task.completed)))
             setCompletedTasks(personalTasks.filter(task => (task.completed)))
         }
-        console.log(['entered'],sortedTask)
     },[groupTasks,personalTasks])
 
 
@@ -37,7 +36,9 @@ function TaskContainer({ groupTasks, personalTasks }) {
         if (categories === 'scheduled') setSortedTask([...scheduledTasks])
         if (categories === 'complete') setSortedTask([...completedTasks])
 
-    }, [categories])
+    }, [categories,activeTasks,scheduledTasks,completedTasks])
+
+
     const checkBox = (task) => {
         if (!task.completed) {
             dispatch(completeTaskThunk(task.id, 'POST'))

@@ -1,5 +1,4 @@
 .tasks-window{
-    width:45%;
     background-color: rgb(205, 168, 168) !important;
     padding:10px;
     display: flex;
@@ -35,7 +34,7 @@
 }
 
 .todo-window{
-    width:85%;
+    width:100%;
     margin:auto;
 }
 
@@ -95,6 +94,7 @@
 .categories{
     display: flex;
     gap:15px;
+    margin-bottom: 10px;
 }
 
 .selected{
@@ -162,4 +162,17 @@ footer{
 
 .search-box{
     width:70%;
+}
+
+.task-window{
+    display:flex;
+    flex-direction: row;
+    width:fit-content;
+    margin:auto;
+
+}
+
+.task-window>div{
+    width:500px;
+    margin:20px;
 }

@@ -92,23 +92,26 @@ function HomePage() {
                 className="todo-container"
             >
                 <div className='todo-window'>
-                    <div className='tasks-window'>
+                    <div>
 
                         {!user ? <div>login to manage your tasks!</div> : (
-                            <div>
+                            <div className="task-window">
                                 <div>
                                     <h3>Your To Do&apos;s</h3>
                                     {personalTasks?.length ?
                                         <TaskContainer personalTasks={personalTasks}></TaskContainer>
-                                        : <div className="task-box">
+                                        :
+                                        <div>
                                             No tasks found!
-                                        </div>}
+                                        </div>
+                                    }
 
                                 </div>
                                 <div>
                                     <h3>Group To Do&apos;s</h3>
                                     {groupTasks?.length ?
-                                        <TaskContainer groupTasks={groupTasks} /> :
+                                        <TaskContainer groupTasks={groupTasks} />
+                                        :
                                         <div>No tasks found!</div>
                                     }
                                 </div>
