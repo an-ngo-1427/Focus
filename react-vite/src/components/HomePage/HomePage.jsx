@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import TaskForm from "../TaskFormModal";
-import { completeTaskThunk, getUserTasksThunk } from "../../redux/task";
+import {getUserTasksThunk } from "../../redux/task";
 import { useEffect, useState } from "react";
-import TaskCard from "../TaskCard";
+
 import './HomePage.css'
 import { getUserGroupsThunk } from "../../redux/group";
-import { IoIosCheckbox } from "react-icons/io";
+
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import { MdEmail } from "react-icons/md";
 import { FaLinkedin } from "react-icons/fa";
@@ -38,20 +38,19 @@ function HomePage() {
     //     // filter user task using query input from user
     // }, [userTasks, query])
     console.log(personalTasks,groupTasks)
-
     useEffect(()=>{
+        console.log('all tasks',userTasks)
         if(!personalTasks?.length || !groupTasks?.length){
             setPersonalTasks(Object.values(userTasks).filter(task => !task.group_id))
             setGroupTasks(Object.values(userTasks).filter(task=>task.group_id))
         }
-
         if (query.length) {
             // personalTasks = personalTasks.filter(task => task.title.includes(query))
             // groupTasks = groupTasks.filter(task => task.title.includes(query))
             setPersonalTasks(personalTasks => personalTasks.filter(task=>task.title.includes(query)))
             setGroupTasks(groupTasks => groupTasks.filter(task => task.title.includes(query)))
         }
-
+        console.log('homepage effect',groupTasks)
     },[userTasks,query])
 
     useEffect(() => {

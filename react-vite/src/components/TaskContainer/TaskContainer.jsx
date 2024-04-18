@@ -1,20 +1,20 @@
 import { useState } from "react"
 import '../HomePage/HomePage.css'
-import { completeTaskThunk } from "../../redux/task";
+import { completeTaskThunk, getUserTasksThunk } from "../../redux/task";
 import TaskCard from "../TaskCard";
 import { IoIosCheckbox } from "react-icons/io";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 function TaskContainer({ groupTasks, personalTasks }) {
     const [categories, setCategories] = useState('active')
     const [sortedTask, setSortedTask] = useState(groupTasks? [...groupTasks] : [...personalTasks])
 
-    console.log('from task container',groupTasks)
     const dispatch = useDispatch()
     const [ activeTasks,setActiveTasks] = useState([]);
     const [scheduledTasks,setScheduledTasks] = useState([]);
     const [completedTasks,setCompletedTasks] = useState([]);
 
+    console.log('from task container',groupTasks)
 
     useEffect(()=>{
 
@@ -28,22 +28,25 @@ function TaskContainer({ groupTasks, personalTasks }) {
             setScheduledTasks(personalTasks.filter(task => (task.deadline && !task.completed)))
             setCompletedTasks(personalTasks.filter(task => (task.completed)))
         }
-    },[groupTasks,personalTasks])
+        console.log('first effect',activeTasks)
+    },[dispatch,groupTasks,personalTasks])
 
 
     useEffect(() => {
         if (categories === 'active') setSortedTask([...activeTasks])
         if (categories === 'scheduled') setSortedTask([...scheduledTasks])
         if (categories === 'complete') setSortedTask([...completedTasks])
-
-    }, [categories,activeTasks,scheduledTasks,completedTasks])
+        console.log('second effect',activeTasks)
+    }, [categories,activeTasks,scheduledTasks,completedTasks,groupTasks,personalTasks])
 
 
     const checkBox = (task) => {
         if (!task.completed) {
             dispatch(completeTaskThunk(task.id, 'POST'))
+
         } else {
             dispatch(completeTaskThunk(task.id, 'DELETE'))
+
         }
     }
 
