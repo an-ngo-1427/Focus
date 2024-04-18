@@ -15,14 +15,7 @@ function HomePage() {
     const dispatch = useDispatch()
     const user = useSelector(state => state.session.user)
     const userTasks = useSelector(state => state.userTasks)
-    // const userGroups = useSelector(state=>state.userGroups)
-    // const [sortedTask, setSortedTask] = useState([])
-    // const [categories, setCategories] = useState('active')
-    // let activeTasks = Object.values(userTasks).filter(task => !task.completed)
-    // let scheduledTasks = Object.values(userTasks).filter(task => (task.deadline && !task.completed))
-    // let completedTasks = Object.values(userTasks).filter(task => task.completed)
-    // let personalTasks = Object.values(userTasks).filter(task => !task.group_id)
-    // let groupTasks = Object.values(userTasks).filter(task => task.group_id)
+
 
     const [personalTasks,setPersonalTasks] = useState()
     const [groupTasks,setGroupTasks] = useState()
@@ -30,54 +23,28 @@ function HomePage() {
 
 
 
-    // useEffect(() => {
-    //     // if (categories === 'active') setSortedTask(query.length ? activeTasks.filter(task => task.title.includes(query) || task.notes.includes(query)) : activeTasks)
-    //     // if (categories === 'scheduled') setSortedTask(query.length ? scheduledTasks.filter(task => task.title.includes(query) || task.notes.includes(query)) : scheduledTasks)
-    //     // if (categories === 'complete') setSortedTask(query.length ? completedTasks.filter(task => task.title.includes(query) || task.notes.includes(query)) : completedTasks)
 
-    //     // filter user task using query input from user
-    // }, [userTasks, query])
     console.log(personalTasks,groupTasks)
     useEffect(()=>{
-        // if(!personalTasks?.length || !groupTasks?.length){
-        //     setPersonalTasks(Object.values(userTasks).filter(task => !task.group_id))
-        //     setGroupTasks(Object.values(userTasks).filter(task=>task.group_id))
-        //     console.log('all tasks',personalTasks,groupTasks)
-        // }
         setPersonalTasks(Object.values(userTasks).filter(task => !task.group_id))
         setGroupTasks(Object.values(userTasks).filter(task=>task.group_id))
-        // if (query.length) {
-        //     setPersonalTasks(personalTasks => personalTasks.filter(task=>task.title.includes(query)))
-        //     setGroupTasks(groupTasks => groupTasks.filter(task => task.title.includes(query)))
-        // }
-        console.log('homepage effect',groupTasks)
     },[userTasks])
 
     useEffect(()=>{
         if (query.length) {
-            // personalTasks = personalTasks.filter(task => task.title.includes(query))
-            // groupTasks = groupTasks.filter(task => task.title.includes(query))
-            setPersonalTasks(personalTasks => personalTasks.filter(task=>task.title.includes(query)))
-            setGroupTasks(groupTasks => groupTasks.filter(task => task.title.includes(query)))
+            setPersonalTasks(Object.values(userTasks).filter(task=>task.title.includes(query) && !task.group_id))
+            setGroupTasks(Object.values(userTasks).filter(task => task.title.includes(query) && task.group_id))
+        }else{
+            setPersonalTasks(Object.values(userTasks).filter(task => !task.group_id))
+            setGroupTasks(Object.values(userTasks).filter(task=>task.group_id))
         }
     },[query])
+
     useEffect(() => {
         dispatch(getUserTasksThunk(user?.id))
         dispatch(getUserGroupsThunk())
     }, [dispatch])
 
-    // const checkBox = (task) => {
-    //     if (!task.completed) {
-    //         dispatch(completeTaskThunk(task.id, 'POST'))
-    //     } else {
-    //         dispatch(completeTaskThunk(task.id, 'DELETE'))
-    //     }
-    // }
-
-    // const boxName = (task) => {
-    //     if (task.completed) return 'task-checkbox completed'
-    //     else return 'task-checkbox'
-    // }
     return (
         <div className="home-page">
             <div className="homepage-int">
