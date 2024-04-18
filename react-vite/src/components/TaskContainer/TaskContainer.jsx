@@ -1,10 +1,10 @@
 import { useState } from "react"
 import '../HomePage/HomePage.css'
-import { completeTaskThunk, getUserTasksThunk } from "../../redux/task";
+import { completeTaskThunk} from "../../redux/task";
 import TaskCard from "../TaskCard";
 import { IoIosCheckbox } from "react-icons/io";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 function TaskContainer({ groupTasks, personalTasks }) {
     const [categories, setCategories] = useState('active')
     const [sortedTask, setSortedTask] = useState(groupTasks? [...groupTasks] : [...personalTasks])

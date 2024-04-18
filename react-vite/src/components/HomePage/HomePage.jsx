@@ -39,20 +39,28 @@ function HomePage() {
     // }, [userTasks, query])
     console.log(personalTasks,groupTasks)
     useEffect(()=>{
-        console.log('all tasks',userTasks)
-        if(!personalTasks?.length || !groupTasks?.length){
-            setPersonalTasks(Object.values(userTasks).filter(task => !task.group_id))
-            setGroupTasks(Object.values(userTasks).filter(task=>task.group_id))
-        }
+        // if(!personalTasks?.length || !groupTasks?.length){
+        //     setPersonalTasks(Object.values(userTasks).filter(task => !task.group_id))
+        //     setGroupTasks(Object.values(userTasks).filter(task=>task.group_id))
+        //     console.log('all tasks',personalTasks,groupTasks)
+        // }
+        setPersonalTasks(Object.values(userTasks).filter(task => !task.group_id))
+        setGroupTasks(Object.values(userTasks).filter(task=>task.group_id))
+        // if (query.length) {
+        //     setPersonalTasks(personalTasks => personalTasks.filter(task=>task.title.includes(query)))
+        //     setGroupTasks(groupTasks => groupTasks.filter(task => task.title.includes(query)))
+        // }
+        console.log('homepage effect',groupTasks)
+    },[userTasks])
+
+    useEffect(()=>{
         if (query.length) {
             // personalTasks = personalTasks.filter(task => task.title.includes(query))
             // groupTasks = groupTasks.filter(task => task.title.includes(query))
             setPersonalTasks(personalTasks => personalTasks.filter(task=>task.title.includes(query)))
             setGroupTasks(groupTasks => groupTasks.filter(task => task.title.includes(query)))
         }
-        console.log('homepage effect',groupTasks)
-    },[userTasks,query])
-
+    },[query])
     useEffect(() => {
         dispatch(getUserTasksThunk(user?.id))
         dispatch(getUserGroupsThunk())
