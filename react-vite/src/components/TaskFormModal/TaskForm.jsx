@@ -125,7 +125,7 @@ function TaskForm({ task, group }) {
     }
 
     return (
-        <div>
+        <div className="form-container">
             <form
                 className="user-auth"
                 onSubmit={handleSubmit}

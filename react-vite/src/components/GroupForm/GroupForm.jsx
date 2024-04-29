@@ -62,7 +62,7 @@ function GroupForm({ group }) {
 
     ('this is group', group)
     return (
-        <div>
+        <div className="form-container">
             <form
                 className="user-auth group-form"
                 onSubmit={handleSubmit}
