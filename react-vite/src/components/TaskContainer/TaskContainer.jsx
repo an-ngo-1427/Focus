@@ -1,43 +1,48 @@
 import { useState } from "react"
 import '../HomePage/HomePage.css'
-import { completeTaskThunk} from "../../redux/task";
+import { completeTaskThunk } from "../../redux/task";
 import TaskCard from "../TaskCard";
 import { IoIosCheckbox } from "react-icons/io";
 import { useEffect } from "react";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 function TaskContainer({ groupTasks, personalTasks }) {
     const [categories, setCategories] = useState('active')
-    const [sortedTask, setSortedTask] = useState(groupTasks? [...groupTasks] : [...personalTasks])
-
+    const [sortedTask, setSortedTask] = useState(groupTasks ? [...groupTasks] : [...personalTasks])
+    const [groupOpt, setGroupOpt] = useState('')
     const dispatch = useDispatch()
-    const [ activeTasks,setActiveTasks] = useState([]);
-    const [scheduledTasks,setScheduledTasks] = useState([]);
-    const [completedTasks,setCompletedTasks] = useState([]);
+    const [activeTasks, setActiveTasks] = useState([]);
+    const [scheduledTasks, setScheduledTasks] = useState([]);
+    const [completedTasks, setCompletedTasks] = useState([]);
 
-    console.log('from task container',groupTasks)
+    const groupArr = []
+    groupTasks?.forEach(task => {
+        if (!groupArr.includes(task.group_id)) groupArr.push(task.group_id)
+    })
 
-    useEffect(()=>{
 
-        if(groupTasks){
-            setActiveTasks(groupTasks.filter(task => !task.completed))
-            setScheduledTasks(groupTasks.filter(task => (task.deadline && !task.completed)))
-            setCompletedTasks(groupTasks.filter(task => task.completed))
+
+    useEffect(() => {
+
+        if (groupTasks) {
+            setActiveTasks(groupTasks.filter(task => (groupOpt === '' ? !task.completed : !task.completed && task.group_id == parseInt(groupOpt))))
+            setScheduledTasks(groupTasks.filter(task => (groupOpt === '' ? task.deadline && !task.completed : task.deadline && !task.completed && task.group_id == parseInt(groupOpt))))
+            setCompletedTasks(groupTasks.filter(task => (groupOpt === '' ? task.completed : task.completed && task.group_id == parseInt(groupOpt))))
         }
-        if(personalTasks){
+        if (personalTasks) {
             setActiveTasks(personalTasks.filter(task => !task.completed))
             setScheduledTasks(personalTasks.filter(task => (task.deadline && !task.completed)))
             setCompletedTasks(personalTasks.filter(task => (task.completed)))
         }
-        console.log('first effect',activeTasks)
-    },[dispatch,groupTasks,personalTasks])
+        console.log('first effect', activeTasks)
+    }, [dispatch, groupTasks, personalTasks, groupOpt])
 
 
     useEffect(() => {
         if (categories === 'active') setSortedTask([...activeTasks])
         if (categories === 'scheduled') setSortedTask([...scheduledTasks])
         if (categories === 'complete') setSortedTask([...completedTasks])
-        console.log('second effect',activeTasks)
-    }, [categories,activeTasks,scheduledTasks,completedTasks,groupTasks,personalTasks])
+        console.log('second effect', activeTasks)
+    }, [categories, activeTasks, scheduledTasks, completedTasks, groupTasks, personalTasks])
 
 
     const checkBox = (task) => {
@@ -95,12 +100,24 @@ function TaskContainer({ groupTasks, personalTasks }) {
 
             </div>
             <div className='tasks-window'>
-                <div className='sort-dropdown'>
-                    <div className='sort-button'>Sort</div>
-                    <div className='dropdown-options'>
-                        <div onClick={() => { dueDateSort(sortedTask) }}>sort by date</div>
-                        <div onClick={() => { difficultySort(sortedTask) }}>sort by difficulties</div>
-                        <div onClick={() => { tagSort(sortedTask) }}>sort by tags</div>
+                <div className="tasks-window-button">
+                    {groupTasks &&
+                            <select
+                                value={groupOpt}
+                                onChange={(e) => { setGroupOpt(e.target.value) }}
+                                className="group-button"
+                            >
+                                <option value="">All groups</option>
+                                {groupArr?.map(groupId => <option key={groupId} value={groupId}>{`Group ${groupId}`}</option>)}
+                            </select>
+                    }
+                    <div className='sort-dropdown'>
+                        <div className='sort-button'>Sort</div>
+                        <div className='dropdown-options'>
+                            <div onClick={() => { dueDateSort(sortedTask) }}>sort by date</div>
+                            <div onClick={() => { difficultySort(sortedTask) }}>sort by difficulties</div>
+                            <div onClick={() => { tagSort(sortedTask) }}>sort by tags</div>
+                        </div>
                     </div>
 
                 </div>

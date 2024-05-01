@@ -178,6 +178,21 @@ footer{
     margin:20px;
 }
 
+.tasks-window-button{
+    width:100%;
+    display: flex;
+    justify-content: flex-end;
+    gap:55%;
+}
+
+.group-button{
+    cursor: pointer;
+    background-color: white;
+    padding: 5px;
+    border-radius: 3px;
+    margin-right: 7px;
+    padding-left:10px;
+}
 @media (max-width : 1300px){
     /* .task-window{
         display: flex;
@@ -198,6 +213,10 @@ footer{
 
     .tasks-window{
         max-width: 300px;
+    }
+
+    .tasks-window-button{
+        gap:50%;
     }
 
 }
