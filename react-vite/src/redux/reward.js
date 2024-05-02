@@ -42,6 +42,8 @@ export const sendRewardsThunk = (userId,reward)=>async (dispatch)=>{
     return data
 }
 
+
+
 const initialState = {}
 
 function groupRewardsReducer(state=initialState,action){

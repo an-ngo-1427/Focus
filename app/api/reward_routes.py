@@ -34,15 +34,6 @@ def addRewardPoints(userId):
 
     newReward.receiver_id = userId
     newReward.amount = data['amount']
-    # if 'group_id' in data:
-    #     newReward.group_id = data['group_id']
-
-    # if 'gifter_id' not in data:
-    #     newReward.gifter_id = None
-    # else:
-    #     newReward.gifter_id = int(data['gifter_id'])
-
-
     newReward.group_id = (int(data['group_id']) if 'group_id' in data else None)
     newReward.gifter_id = (int(data['gifter_id']) if 'gifter_id' in data else None)
     newReward.notes = (data['notes'] if 'notes' in data else "")
@@ -50,7 +41,7 @@ def addRewardPoints(userId):
     db.session.add(newReward)
     db.session.commit()
 
-    return newReward.to_dict()
+    return newReward.to_dict(), 201
 
 # editting a reward
 @reward_routes.route('/<int:rewardId>/edit',methods=['PUT'])

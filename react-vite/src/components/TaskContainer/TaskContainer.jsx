@@ -5,6 +5,8 @@ import TaskCard from "../TaskCard";
 import { IoIosCheckbox } from "react-icons/io";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import {sendRewardsThunk} from "../../redux/reward"
+
 function TaskContainer({ groupTasks, personalTasks }) {
     const [categories, setCategories] = useState('active')
     const [sortedTask, setSortedTask] = useState(groupTasks ? [...groupTasks] : [...personalTasks])
@@ -47,7 +49,20 @@ function TaskContainer({ groupTasks, personalTasks }) {
 
     const checkBox = (task) => {
         if (!task.completed) {
+
+            const rewardObj = {}
+
+            rewardObj['task_id'] = task.id
+
+            // reward amounts are based on difficulty of the task
+            if(!task.difficulty || task.difficulty <=2 ) rewardObj['amount'] = 2
+            if( task.difficulty === 3) rewardObj['amount'] = 4
+            if(task.difficulty === 4) rewardObj['amount'] = 6
+            if( task.difficulty === 5) rewardObj['amount'] = 8
+
+
             dispatch(completeTaskThunk(task.id, 'POST'))
+            dispatch(sendRewardsThunk(task.user.id,rewardObj))
 
         } else {
             dispatch(completeTaskThunk(task.id, 'DELETE'))
