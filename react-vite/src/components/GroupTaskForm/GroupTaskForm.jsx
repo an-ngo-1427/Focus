@@ -59,7 +59,7 @@ function GroupTaskForm({group}){
         }
     }
     return (
-        <div>
+        <div className="form-container">
 
             <form
                 className="user-auth"
