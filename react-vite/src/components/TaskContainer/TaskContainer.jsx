@@ -1,4 +1,4 @@
-import { useState } from "react"
+import {useState } from "react"
 import '../HomePage/HomePage.css'
 import { completeTaskThunk } from "../../redux/task";
 import TaskCard from "../TaskCard";
@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {sendRewardsThunk} from "../../redux/reward"
 
-function TaskContainer({ groupTasks, personalTasks }) {
+function TaskContainer({ groupTasks, personalTasks,setDialBox}) {
     const [categories, setCategories] = useState('active')
     const [sortedTask, setSortedTask] = useState(groupTasks ? [...groupTasks] : [...personalTasks])
     const [groupOpt, setGroupOpt] = useState('')
@@ -15,6 +15,7 @@ function TaskContainer({ groupTasks, personalTasks }) {
     const [activeTasks, setActiveTasks] = useState([]);
     const [scheduledTasks, setScheduledTasks] = useState([]);
     const [completedTasks, setCompletedTasks] = useState([]);
+
 
     const groupArr = []
     groupTasks?.forEach(task => {
@@ -63,6 +64,7 @@ function TaskContainer({ groupTasks, personalTasks }) {
 
             dispatch(completeTaskThunk(task.id, 'POST'))
             dispatch(sendRewardsThunk(task.user.id,rewardObj))
+            .then(()=>{setDialBox(`show ${rewardObj.amount}`)})
 
         } else {
             dispatch(completeTaskThunk(task.id, 'DELETE'))
