@@ -115,7 +115,7 @@
 .home-page{
     display: flex;
     flex-direction: column;
-    position: relative;
+    position:relative;
 }
 
 footer{
@@ -199,12 +199,13 @@ footer{
 }
 
 .dialbox.show{
-    position:absolute;
-    top:-50px;
+    position:fixed;
+    top:15px;
     left:30%;
     padding:10px;
     background-color: rgb(208, 179, 179);
     color: black;
+    z-index: 1;
 }
 @media (max-width : 1300px){
     /* .task-window{

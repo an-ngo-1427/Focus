@@ -22,7 +22,7 @@ function HomePage() {
     const [personalTasks, setPersonalTasks] = useState()
     const [groupTasks, setGroupTasks] = useState()
     const [query, setQuery] = useState('')
-    const [dialBox, setDialBox] = useState('')
+    const [dialBox, setDialBox] = useState('hidden')
 
 
 
