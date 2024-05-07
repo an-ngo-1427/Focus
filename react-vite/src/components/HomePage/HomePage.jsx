@@ -30,7 +30,6 @@ function HomePage() {
     useEffect(()=>{
         if(dialBox !== 'hidden'){
             const inter = setInterval(()=>{
-                console.log('entered interval')
                 setDialBox('hidden')
             },1000)
             return ()=>{

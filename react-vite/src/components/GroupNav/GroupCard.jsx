@@ -14,23 +14,31 @@ import { getGroupRewardsThunk } from "../../redux/reward"
 import RewardCard from "../RewardCard"
 
 function GroupCard({ group }) {
-    const [show, setShow] = useState('tasks')
-    const [showMenu, setShowMenu] = useState(false)
     const mainUser = useSelector(state => state.session.user)
     const groupRewards = useSelector(state => state.groupRewards)
-    const dispatch = useDispatch()
+    const groupTasks = group.tasks
 
+    const [show, setShow] = useState('tasks')
+    const [showMenu, setShowMenu] = useState(false)
+    const [categories,setCategories] = useState('active')
+    const [sortedTasks,setSortedTasks] = useState(groupTasks?.filter(task=>!task.completed))
+    const dispatch = useDispatch()
     useEffect(() => {
 
         dispatch(getGroupRewardsThunk(group.id))
         document.addEventListener('click',()=>setShowMenu(false))
     }, [dispatch, group, showMenu])
 
+    useEffect(()=>{
+        if(categories === 'active') setSortedTasks(groupTasks?.filter(task => !task.completed))
+        if(categories === 'scheduled') setSortedTasks(groupTasks?.filter(task => !task.completed && task.deadline))
+        if(categories === 'complete') setSortedTasks(groupTasks?.filter(task=>task.completed))
+        if(categories === 'unassigned') setSortedTasks(groupTasks?.filter(task=>!task.user))
+    },[categories,group])
     const boxName = (task) => {
         if (task.completed) return 'task-checkbox completed'
         else return 'task-checkbox'
     }
-    const groupTasks = group.tasks
 
     if (!Object.values(group).length) return null
 
@@ -63,8 +71,15 @@ function GroupCard({ group }) {
 
             </div>
             {show === 'tasks' &&
+            <>
+                 <div className="categories">
+                    <span onClick={() => { setCategories('unassigned') }} className={categories === 'unassigned' ? 'selected' : ''}>Unassigned</span>
+                    <span onClick={() => { setCategories('active') }} className={categories === 'active' ? 'selected' : ''}>Active</span>
+                    <span onClick={() => { setCategories('scheduled') }} className={categories === 'scheduled' ? 'selected' : ''}>Scheduled</span>
+                    <span onClick={() => { setCategories('complete') }} className={categories === 'complete' ? 'selected' : ''}>Complete</span>
+                </div>
                 <div id='tasks' className='group-tasks'>
-                    {groupTasks?.map(task => (
+                    {sortedTasks?.map(task => (
                         <div
                             key={task.id}
                             className="task-box"
@@ -80,6 +95,8 @@ function GroupCard({ group }) {
                     )}
 
                 </div>
+
+            </>
             }
 
             {show === 'members' &&
