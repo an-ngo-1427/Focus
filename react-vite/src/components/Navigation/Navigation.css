@@ -1,8 +1,11 @@
 .profile-dropdown {
   position: absolute;
   list-style: none;
+  z-index: 1;
 }
-
+.profile-dropdown>li{
+  padding:5px;
+}
 .page-header{
   display: flex;
   flex-direction: row;
