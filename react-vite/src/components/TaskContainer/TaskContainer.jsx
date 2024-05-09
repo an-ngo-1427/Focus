@@ -1,11 +1,13 @@
-import { useState } from "react"
+import {useState } from "react"
 import '../HomePage/HomePage.css'
 import { completeTaskThunk } from "../../redux/task";
 import TaskCard from "../TaskCard";
 import { IoIosCheckbox } from "react-icons/io";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-function TaskContainer({ groupTasks, personalTasks }) {
+import {sendRewardsThunk} from "../../redux/reward"
+
+function TaskContainer({ groupTasks, personalTasks,setDialBox}) {
     const [categories, setCategories] = useState('active')
     const [sortedTask, setSortedTask] = useState(groupTasks ? [...groupTasks] : [...personalTasks])
     const [groupOpt, setGroupOpt] = useState('')
@@ -13,6 +15,7 @@ function TaskContainer({ groupTasks, personalTasks }) {
     const [activeTasks, setActiveTasks] = useState([]);
     const [scheduledTasks, setScheduledTasks] = useState([]);
     const [completedTasks, setCompletedTasks] = useState([]);
+
 
     const groupArr = []
     groupTasks?.forEach(task => {
@@ -47,7 +50,21 @@ function TaskContainer({ groupTasks, personalTasks }) {
 
     const checkBox = (task) => {
         if (!task.completed) {
+
+            const rewardObj = {}
+
+            rewardObj['task_id'] = task.id
+
+            // reward amounts are based on difficulty of the task
+            if(!task.difficulty || task.difficulty <=2 ) rewardObj['amount'] = 2
+            if( task.difficulty === 3) rewardObj['amount'] = 4
+            if(task.difficulty === 4) rewardObj['amount'] = 6
+            if( task.difficulty === 5) rewardObj['amount'] = 8
+
+
             dispatch(completeTaskThunk(task.id, 'POST'))
+            dispatch(sendRewardsThunk(task.user.id,rewardObj))
+            .then(()=>{setDialBox(`show ${rewardObj.amount}`)})
 
         } else {
             dispatch(completeTaskThunk(task.id, 'DELETE'))

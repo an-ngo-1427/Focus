@@ -115,7 +115,7 @@
 .home-page{
     display: flex;
     flex-direction: column;
-
+    position:relative;
 }
 
 footer{
@@ -192,6 +192,20 @@ footer{
     border-radius: 3px;
     margin-right: 7px;
     padding-left:10px;
+}
+
+.dialBox.hidden{
+    display: none;
+}
+
+.dialbox.show{
+    position:fixed;
+    top:15px;
+    left:30%;
+    padding:10px;
+    background-color: rgb(208, 179, 179);
+    color: black;
+    z-index: 1;
 }
 @media (max-width : 1300px){
     /* .task-window{

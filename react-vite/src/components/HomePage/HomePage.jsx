@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-
+import { useState,useEffect} from "react";
 import TaskForm from "../TaskFormModal";
-import {getUserTasksThunk } from "../../redux/task";
-import { useEffect, useState } from "react";
+import { getUserTasksThunk } from "../../redux/task";
+
 
 import './HomePage.css'
 import { getUserGroupsThunk } from "../../redux/group";
@@ -11,34 +11,49 @@ import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import { MdEmail } from "react-icons/md";
 import { FaLinkedin } from "react-icons/fa";
 import TaskContainer from "../TaskContainer/TaskContainer";
+
+
 function HomePage() {
     const dispatch = useDispatch()
     const user = useSelector(state => state.session.user)
     const userTasks = useSelector(state => state.userTasks)
 
 
-    const [personalTasks,setPersonalTasks] = useState()
-    const [groupTasks,setGroupTasks] = useState()
+    const [personalTasks, setPersonalTasks] = useState()
+    const [groupTasks, setGroupTasks] = useState()
     const [query, setQuery] = useState('')
+    const [dialBox, setDialBox] = useState('hidden')
 
 
 
-
-    console.log(personalTasks,groupTasks)
+    //setting dialbox when completing tasks
     useEffect(()=>{
-        setPersonalTasks(Object.values(userTasks).filter(task => !task.group_id))
-        setGroupTasks(Object.values(userTasks).filter(task=>task.group_id))
-    },[userTasks])
+        if(dialBox !== 'hidden'){
+            const inter = setInterval(()=>{
+                setDialBox('hidden')
+            },1000)
+            return ()=>{
+                clearInterval(inter)
+            }
 
-    useEffect(()=>{
-        if (query.length) {
-            setPersonalTasks(Object.values(userTasks).filter(task=>task.title.includes(query) && !task.group_id))
-            setGroupTasks(Object.values(userTasks).filter(task => task.title.includes(query) && task.group_id))
-        }else{
-            setPersonalTasks(Object.values(userTasks).filter(task => !task.group_id))
-            setGroupTasks(Object.values(userTasks).filter(task=>task.group_id))
         }
-    },[query])
+
+    },[dialBox])
+
+    useEffect(() => {
+        setPersonalTasks(Object.values(userTasks).filter(task => !task.group_id))
+        setGroupTasks(Object.values(userTasks).filter(task => task.group_id))
+    }, [userTasks])
+
+    useEffect(() => {
+        if (query.length) {
+            setPersonalTasks(Object.values(userTasks).filter(task => task.title.includes(query) && !task.group_id))
+            setGroupTasks(Object.values(userTasks).filter(task => task.title.includes(query) && task.group_id))
+        } else {
+            setPersonalTasks(Object.values(userTasks).filter(task => !task.group_id))
+            setGroupTasks(Object.values(userTasks).filter(task => task.group_id))
+        }
+    }, [query])
 
     useEffect(() => {
         dispatch(getUserTasksThunk(user?.id))
@@ -47,6 +62,9 @@ function HomePage() {
 
     return (
         <div className="home-page">
+            <div className={`dialbox ${dialBox}`}>
+                {`Task completed: ${dialBox[dialBox.length - 1]} points rewarded!`}
+            </div>
             <div className="homepage-int">
 
                 <input
@@ -69,28 +87,31 @@ function HomePage() {
                     <div>
 
                         {!user ? <div>login to manage your tasks!</div> : (
-                            <div className="task-window">
-                                <div>
-                                    <h3>Your To Do&apos;s</h3>
-                                    {personalTasks?.length ?
-                                        <TaskContainer personalTasks={personalTasks}></TaskContainer>
-                                        :
-                                        <div>
-                                            No tasks found!
-                                        </div>
-                                    }
+
+                                <div className="task-window">
+                                    <div>
+                                        <h3>Your To Do&apos;s</h3>
+                                        {personalTasks?.length ?
+                                            <TaskContainer personalTasks={personalTasks} setDialBox={setDialBox}></TaskContainer>
+                                            :
+                                            <div>
+                                                No tasks found!
+                                            </div>
+                                        }
+
+                                    </div>
+                                    <div>
+                                        <h3>Group To Do&apos;s</h3>
+                                        {groupTasks?.length ?
+                                            <TaskContainer groupTasks={groupTasks} setDialBox={setDialBox}/>
+                                            :
+                                            <div>No tasks found!</div>
+                                        }
+                                    </div>
 
                                 </div>
-                                <div>
-                                    <h3>Group To Do&apos;s</h3>
-                                    {groupTasks?.length ?
-                                        <TaskContainer groupTasks={groupTasks} />
-                                        :
-                                        <div>No tasks found!</div>
-                                    }
-                                </div>
 
-                            </div>
+
                         )
                         }
                     </div>
