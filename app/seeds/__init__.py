@@ -27,16 +27,16 @@ def seed():
     seed_users()
     seed_groups()
     seed_user_groups()
-    seed_rewards()
     seed_tasks()
+    seed_rewards()
     # Add other seed functions here
 
 
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
 def undo():
-    undo_tasks()
     undo_rewards()
+    undo_tasks()
     undo_user_groups()
     undo_groups()
     undo_users()
